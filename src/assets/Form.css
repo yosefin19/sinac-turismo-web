@@ -1,0 +1,60 @@
+body {
+  text-align: center;
+}
+
+input {
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid rgb(252, 252, 252);
+  margin: 5px;
+  margin-bottom: 0px;
+  padding: 5px 10px;
+  width: 250px;
+  height: 30px;
+  
+}
+
+button {
+  height: 30px;
+  min-width: 150px;
+  border-radius: 10px;
+  border: none;
+  background-color: #769E5F;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  cursor: pointer;
+  color: white;
+}
+
+button:hover {
+  background-color: #769E5F;
+}
+
+.error {
+  color: tomato;
+  margin-bottom: 10px;
+  height: 8px;
+  font-size: 13px;
+}
+
+.line{
+  width: 30%;
+}
+.text{
+  font-size: 15px;
+  margin-top: 25px;
+  font-style: normal;
+}
+
+
+.switch {
+
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  transition: 0.2s;
+  background: #fff;
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+}
+
