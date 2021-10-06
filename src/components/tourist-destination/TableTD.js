@@ -5,7 +5,7 @@ const styles = {textAlign: 'center', alignItems: 'center',}
 
 const TableTD = ({data}) => {
     return(
-        <Table striped bordered hover size="lg" responsive="lg">
+        <Table striped hover size="lg" responsive="lg">
             <thead>
             <tr>
                 <th style={styles}>Imagen</th>

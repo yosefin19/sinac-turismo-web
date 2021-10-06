@@ -7,7 +7,7 @@ import {useHistory, useParams} from "react-router-dom";
 import Message from "../Message";
 import './TouristDestinationAreaForm.css'
 
-const api_url = "http://localhost:8000";
+import {API_URL, DESTINATIONS_URL} from "../../config";
 
 const initialForm ={
     id: 0,
@@ -38,18 +38,18 @@ const ManageFormTD = () => {
     const [show, setShow] = useState(false);
 
     let {id} = useParams()
-    let url = `${api_url}/update-tourist-destination`
+    let url = `${API_URL}${DESTINATIONS_URL}update/`
     let history = useHistory()
     let api = helpApi()
 
     useEffect(() => {
-        let endpoint = `${api_url}/conservation-area`
+        let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
+        //console.log(endpoint)
         helpApi()
             .get(endpoint)
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 if (!res.err) {
-                    console.log("actualizo")
                     setConservationArea(res);
                     setError(null);
                 } else {
@@ -57,10 +57,10 @@ const ManageFormTD = () => {
                     setError(res.err);
                 }
             });
-    }, []);
+    }, [id]);
 
     useEffect(() => {
-            let endpoint = `${api_url}/tourist-destination/${id}`
+            let endpoint = `${url}${id}/photos`
             helpApi()
                 .get(endpoint)
                 .then((res) => {
@@ -78,7 +78,7 @@ const ManageFormTD = () => {
                     }
                 });
         },
-        [id])
+        [id, url])
 
     const updateData = (data) => {
         let endpoint = `${url}/${id}`
@@ -103,7 +103,7 @@ const ManageFormTD = () => {
     };
 
     const updateImages = (id) => {
-        let endpoint = `${api_url}/update-tourist-destination/${id}/photos`
+        let endpoint = `${url}${id}/photos`
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
             formPhotos.append(`photos`, photos[i])
@@ -167,7 +167,7 @@ const ManageFormTD = () => {
     const handleShow = () => setShow(true);
 
     const handleDelete = () => {
-        let endpoint = `${api_url}/delete-tourist-destination/${id}`
+        let endpoint = `${url}${id}`
         api.del(endpoint).then((res) => {
             if (!res.err) {
                 setForm(initialForm)

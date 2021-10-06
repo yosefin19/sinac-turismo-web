@@ -9,7 +9,7 @@ import Message from "../components/Message";
 import {Link} from "react-router-dom";
 import TableTD from "../components/tourist-destination/TableTD";
 
-const api_url = "http://localhost:8000";
+import {API_URL, DESTINATIONS_URL} from "../config";
 
 const TouristDestination = () => {
 
@@ -17,7 +17,7 @@ const TouristDestination = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    let url = `${api_url}/tourist-destination`
+    let url = `${API_URL}${DESTINATIONS_URL}`
 
     useEffect(() => {
         setLoading(true);

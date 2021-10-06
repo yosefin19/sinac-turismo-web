@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 import Message from "../Message";
 import './TouristDestinationAreaForm.css'
 
-const api_url = "http://localhost:8000";
+import {API_URL, DESTINATIONS_URL, AREAS_URL} from "../../config";
 
 const initialForm ={
     id: 0,
@@ -37,7 +37,7 @@ const AddFormCA = () => {
     const [conservationArea, setConservationArea] = useState([])
 
     useEffect(() => {
-        let endpoint = `${api_url}/conservation-area`
+        let endpoint = `${API_URL}${AREAS_URL}`
         helpApi()
             .get(endpoint)
             .then((res) => {
@@ -52,7 +52,7 @@ const AddFormCA = () => {
             });
     }, []);
 
-    let url = `${api_url}/add-tourist-destination`
+    let url = `${API_URL}${DESTINATIONS_URL}`
     let history = useHistory()
     let api = helpApi();
 
@@ -92,7 +92,7 @@ const AddFormCA = () => {
     };
 
     const sendImages = (id) => {
-        let endpoint = `${url}/${id}/photos`
+        let endpoint = `${url}${id}/photos`
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
             formPhotos.append(`photos`, photos[i])
