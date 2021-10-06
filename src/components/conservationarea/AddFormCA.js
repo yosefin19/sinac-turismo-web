@@ -6,8 +6,7 @@ import {helpApi} from "../../helper/helpApi";
 import {useHistory} from "react-router-dom";
 import Message from "../Message";
 import './ConservationAreaForm.css'
-
-const api_url = "http://localhost:8000";
+import {API_URL, AREAS_URL} from "../../config";
 
 const initialForm ={
     id: 0,
@@ -24,7 +23,7 @@ const AddFormCA = () => {
     const [photos, setPhotos] = useState(null);
     const [region, setRegion] = useState(null)
 
-    let url = `${api_url}/add-conservation-area`
+    let url = `${API_URL}${AREAS_URL}`
     let history = useHistory()
     let api = helpApi();
 
@@ -55,7 +54,7 @@ const AddFormCA = () => {
     };
     
     const sendImages = (id) => {
-        let endpoint = `${url}/${id}/photos`
+        let endpoint = `${url}${id}/photos`
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
             formPhotos.append(`photos`, photos[i])

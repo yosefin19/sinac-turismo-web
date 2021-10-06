@@ -1,8 +1,7 @@
 import {Image} from "react-bootstrap";
 import {IoOpenOutline} from "react-icons/all";
 import {Link} from "react-router-dom";
-
-const api_url = "http://localhost:8000";
+import {IMAGE_BASE_URL} from "../../config"
 
 const styles = {
     maxHeight:'50px',
@@ -15,11 +14,11 @@ const TableRowCA = ({element}) => {
     let {name, description, id, photos_path} = element;
 
     let photos = photos_path.split(",");
-    console.log(`${api_url}${photos[0]}`)
+    console.log(`${IMAGE_BASE_URL}${photos[0]}`)
     return(
         <tr>
             <td style={{display: "flex", justifyContent: 'center', alignItems: 'center',}}>
-                <Image style={styles} src={`${api_url}${photos[0]}`}/>
+                <Image style={styles} src={`${IMAGE_BASE_URL}${photos[0]}`}/>
             </td>
             <td style={{textAlign: 'center', justifyContent: 'center', alignItems: 'center',}}>{id}</td>
             <td style={{textAlign: 'center', justifyContent: 'center', alignItems: 'center',}}>{name}</td>

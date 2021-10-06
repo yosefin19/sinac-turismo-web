@@ -6,8 +6,7 @@ import {helpApi} from "../../helper/helpApi";
 import {useHistory, useParams} from "react-router-dom";
 import Message from "../Message";
 import './ConservationAreaForm.css'
-
-const api_url = "http://localhost:8000";
+import {API_URL, AREAS_URL} from "../../config";
 
 const initialForm ={
     id: 0,
@@ -27,16 +26,17 @@ const ManageFormCA = () => {
     const [show, setShow] = useState(false);
 
     let {id} = useParams()
-    let url = `${api_url}/update-conservation-area`
+    let url = `${API_URL}${AREAS_URL}update/`
     let history = useHistory()
     let api = helpApi()
 
     useEffect(() => {
-        let endpoint = `${api_url}/conservation-area/${id}`
+        let endpoint = `${API_URL}${AREAS_URL}${id}`
+        console.log(endpoint)
             helpApi()
                 .get(endpoint)
                 .then((res) => {
-                    //console.log(res);
+                    console.log(res);
                     if (!res.err) {
                         //res.photos_path = res.photos_path.split(",").map(e => `${api_url}${e}`)
                         //res.region_path = `${api_url}${res.region_path}`
@@ -51,7 +51,7 @@ const ManageFormCA = () => {
         [id])
 
     const updateData = (data) => {
-        let endpoint = `${url}/${id}`
+        let endpoint = `${url}${id}`
         //console.log(data);
         //console.log(endpoint);
         let options = {
@@ -72,7 +72,7 @@ const ManageFormCA = () => {
     };
 
     const updateImages = (id) => {
-        let endpoint = `${api_url}/update-conservation-area/${id}/photos`
+        let endpoint = `${url}${id}/photos`
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
             formPhotos.append(`photos`, photos[i])
@@ -121,7 +121,7 @@ const ManageFormCA = () => {
     const handleShow = () => setShow(true);
 
     const handleDelete = () => {
-        let endpoint = `${api_url}/delete-conservation-area/${id}`
+        let endpoint = `${url}${id}`
         api.del(endpoint).then((res) => {
             if (!res.err) {
                 setForm(initialForm)

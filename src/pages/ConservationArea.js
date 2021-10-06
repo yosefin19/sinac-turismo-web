@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import {Link} from "react-router-dom";
 
-const api_url = "http://localhost:8000";
+import {API_URL, AREAS_URL} from "../config";
 
 const ConservationArea = () => {
 
@@ -17,7 +17,7 @@ const ConservationArea = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    let url = `${api_url}/conservation-area`
+    let url = `${API_URL}${AREAS_URL}`
 
     useEffect(() => {
         setLoading(true);
