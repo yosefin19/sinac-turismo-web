@@ -7,7 +7,7 @@ import {useHistory, useParams} from "react-router-dom";
 import Message from "../Message";
 import './TouristDestinationAreaForm.css'
 
-import {API_URL, DESTINATIONS_URL} from "../../config";
+import {API_URL, AREAS_URL, DESTINATIONS_URL} from "../../config";
 
 const initialForm ={
     id: 0,
@@ -43,7 +43,7 @@ const ManageFormTD = () => {
     let api = helpApi()
 
     useEffect(() => {
-        let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
+        let endpoint = `${API_URL}${AREAS_URL}`
         //console.log(endpoint)
         helpApi()
             .get(endpoint)
@@ -60,13 +60,14 @@ const ManageFormTD = () => {
     }, [id]);
 
     useEffect(() => {
-            let endpoint = `${url}${id}/photos`
+            let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
+            //console.log(endpoint)
             helpApi()
                 .get(endpoint)
                 .then((res) => {
-                    console.log(res);
+                    //console.log(res);
                     if (!res.err) {
-                        console.log("actu form")
+                        //console.log("actu form")
                         //res.photos_path = res.photos_path.split(",").map(e => `${api_url}${e}`)
                         //res.region_path = `${api_url}${res.region_path}`
                         setForm(res);
@@ -81,15 +82,15 @@ const ManageFormTD = () => {
         [id, url])
 
     const updateData = (data) => {
-        let endpoint = `${url}/${id}`
-        console.log(data)
-        console.log(endpoint)
+        let endpoint = `${url}${id}`
+        //console.log(data)
+        //console.log(endpoint)
         let options = {
             body: data,
             headers: { "content-type": "application/json" },
         };
         api.post(endpoint, options).then((res) => {
-            console.log(res)
+            //console.log(res)
             if (!res.err) {
                 updateImages(res.id)
                 setForm(initialForm)
@@ -130,7 +131,7 @@ const ManageFormTD = () => {
             ...form,
             [e.target.name]: e.target.value,
         });
-        console.log(form)
+        //console.log(form)
     };
 
     const handlePress = (e) => {
@@ -155,7 +156,7 @@ const ManageFormTD = () => {
 
     const handleSubmit = () => {
         if (validatedData && !error){
-            console.log(form)
+            //console.log(form)
             updateData(form)
             setValidated(true)
         }
@@ -167,7 +168,8 @@ const ManageFormTD = () => {
     const handleShow = () => setShow(true);
 
     const handleDelete = () => {
-        let endpoint = `${url}${id}`
+        let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
+        console.log(endpoint)
         api.del(endpoint).then((res) => {
             if (!res.err) {
                 setForm(initialForm)
