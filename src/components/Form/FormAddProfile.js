@@ -15,7 +15,9 @@ function Form() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phone, setPhone] = useState("");
-  const [admin, setAdmin] = useState("");
+  const [id_user, setUser] = useState("");
+  const [profile, setProfile] = useState(null);
+  const [cover, setCover] = useState(null);
 
   const dirUpdateButton = '/profiles'
   const urlApi = 'http://127.0.0.1:8000/add-profile' 
@@ -35,26 +37,49 @@ function Form() {
     },
     [email]
   );
+    
 
 
   const Agregar = () => {
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email:email, password: password })
+      body: JSON.stringify({email:email, phone:phone, name:name, user_id:id_user})
     };
+
       fetch(urlApi, requestOptions)
       .then(response => response.json())
+      history.push({
+        pathname: dirUpdateButton,
+       })
+       window.history.go()
+      
 
-
-    history.push({
-      pathname: dirUpdateButton,
-     })
-     window.history.go()
   }
+  const addImage = (id, type) =>{
+ 
+    const url =  'http://127.0.0.1:8000/profiles/photo/'+type+ '/'+id
+
+    const formPhotos = new FormData();
+    if(type == 'cover'){
+      formPhotos.append(`photo`, cover)
+    }else{
+      formPhotos.append(`photo`, profile)
+    }
+    const requestOptions = {
+        method: 'POST',
+        body: formPhotos,
+        mimeType: "multipart/form-data",
+
+    }; 
+       fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+  }
+
+
   return (
-
-
     <div>
       
       <form>
@@ -90,15 +115,31 @@ function Form() {
         />
          <hr  className="line"/>
 
-         <h1 className='text'>Usuario Administrador:</h1>
+         <h1 className='text'>Identificador Usuario asociado:</h1>
         <input
-          className = 'switch'
-          value={admin}
-          onChange={e => setAdmin(e.target.value)}
-          type="checkbox"
-          placeholder= 'Admin'
-        />       
-       
+          value={id_user}
+          onChange={e => setUser(e.target.value)}
+          type="text"
+          placeholder= 'Identificador'
+        />
+         <hr  className="line"/>
+
+         <h1 className='text'>Foto de perfil:</h1>
+         <input
+          value={profile}
+          onChange={e => setProfile(e.target.value)}
+          type="file"
+          placeholder= 'Identificador'
+        />
+<hr  className="line"/>
+        <h1 className='text'>Foto de portada:</h1>
+          <input
+          value={cover}
+          onChange={e => setCover(e.target.value)}
+          type="file"
+          placeholder= 'Identificador'
+        />
+         <hr  className="line"/>
        
         <button onClick={Agregar} type="submit">Agregar</button>
       </form>

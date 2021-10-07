@@ -29,7 +29,7 @@ componentDidMount(){
   const columns = [    
     {
       Header: "",
-      accessor: 'ruta',
+      accessor: 'profile_photo_path',
       Cell:AvatarCell,
     },
     {
@@ -45,9 +45,14 @@ componentDidMount(){
       accessor: 'email',
     },
     {
-      Header: "Administrador",
-      accessor: 'admin',
+      Header: "Portada",
+      accessor: 'cover_photo_path',
     },
+    {
+      Header: "Usuario asociado",
+      accessor: 'user_id',
+    },
+
     {
       Header: "Editar",
       Cell: UpdateButton,

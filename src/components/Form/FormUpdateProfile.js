@@ -12,11 +12,12 @@ function validateEmail(email) {
 function Form(props) {
   const pdata = props.data;
   const idUser = props.id;
-  const [name, setName] = useState(pdata[0].name);
-  const [email, setEmail] = useState(pdata[0].email);
+  const [name, setName] = useState(pdata.name);
+  const [email, setEmail] = useState(pdata.email);
   const [emailError, setEmailError] = useState("");
-  const [phone, setPhone] = useState(pdata[0].phone);
-  const [admin, setAdmin] = useState(pdata[0].admin);
+  const [phone, setPhone] = useState(pdata.phone);
+  const [profile, setProfile] = useState(null);
+  const [cover, setCover] = useState(null);
   
   const dirUpdateButton = '/profiles'
   
@@ -38,17 +39,50 @@ function Form(props) {
     },
     [email]
   );
+
+  const updateImage = (type) =>{
+    const url =  'http://127.0.0.1:8000/profiles/photo/'+type+ '/'+idUser
+
+    const formPhotos = new FormData();
+    if(type == 'cover'){
+      formPhotos.append(`photo`, cover)
+    }else{
+      formPhotos.append(`photo`, profile)
+    }
+    const requestOptions = {
+        method: 'POST',
+        body: formPhotos,
+        mimeType: "multipart/form-data",
+
+    }; 
+       fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+
+  }
   const Actualizar = () => {
+
+    //primero agrego cada foto, me retorna el path de cada foto y los guardo 
+   // const profile_path = updateImage(profile, 'profile');
+    //const cover_path = updateImage(cover, 'cover');
 
     const url =  'http://127.0.0.1:8000/update-profile/'+idUser;
 
     const requestOptions = {
      method: 'POST',
-     body: JSON.stringify({email:email, name:name, phone:phone, admin:admin })
+     body: JSON.stringify({email:email, name:name, phone:phone
+  
+    }) 
    };
      fetch(url, requestOptions)
      .then(response => response.json())
-     
+    /* if(cover){
+        updateImage('cover')
+     }
+     if(profile){
+       updateImage('profile')
+     }
+     */
     history.push({
      pathname: dirUpdateButton,
     })
@@ -81,7 +115,7 @@ function Form(props) {
           value={name}
           onChange={e => setName(e.target.value)}
           type="text"
-          placeholder = {pdata[0].name}
+          placeholder = {pdata.name}
         />
          <hr  className="line"/>
 
@@ -90,7 +124,7 @@ function Form(props) {
           value={email}
           onChange={e => setEmail(e.target.value)}
           type="text"
-          placeholder = {pdata[0].email}
+          placeholder = {pdata.email}
         />
          <hr  className="line"/>
         <div className="error">{emailError}</div>
@@ -101,20 +135,27 @@ function Form(props) {
           value={phone}
           onChange={e => setPhone(e.target.value)}
           type="text"
-          placeholder= {pdata[0].phone}
+          placeholder= {pdata.phone}
         />
          <hr  className="line"/>
 
-         <h1 className='text'>Usuario Administrador:</h1>
-        <input
-          className = 'switch'
-          value={admin}
-          onChange={e => setAdmin(e.target.value)}
-          type="checkbox"
-          placeholder= 'Admin'
-        />
-         
 
+         <h1 className='text'>Foto de perfil:</h1>
+         <input
+          value={profile}
+          onChange={e => setProfile(e.target.value)}
+          type="file"
+          placeholder= 'Identificador'
+        />
+<hr  className="line"/>
+        <h1 className='text'>Foto de portada:</h1>
+          <input
+          value={cover}
+          onChange={e => setCover(e.target.value)}
+          type="file"
+          placeholder= 'Identificador'
+        />
+<hr  className="line"/>
 
          <button onClick={Actualizar} type="submit">Actualizar</button>
 
