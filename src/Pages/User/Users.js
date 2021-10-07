@@ -42,6 +42,10 @@ render(){
       accessor: "password",
     },
     {
+      Header: "Administrador",
+      accessor: 'admin',
+    },
+    {
       Header: "Editar",
       Cell: UpdateButton,
     }
@@ -61,11 +65,7 @@ render(){
       </section>
   )
 
-}
-
-
-
-
+    }
       }
 
 

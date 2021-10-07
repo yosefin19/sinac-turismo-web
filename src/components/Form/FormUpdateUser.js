@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory} from 'react-router-dom';
 import "../../assets/Form.css";
+import Switch from "../Switch/Switch";
 
 const urlApi = 'http://127.0.0.1:8000/' 
 
@@ -41,6 +42,7 @@ function Form(props) {
   const [emailError, setEmailError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [admin, setAdmin] = useState(pdata.admin);
 
   const dirUpdateButton = '/users'
 
@@ -87,7 +89,7 @@ function Form(props) {
    const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({email:email, password: password })
+    body: JSON.stringify({email:email, password: password, admin:admin})
   };
     fetch(url, requestOptions)
     .then(response => response.json())
@@ -148,6 +150,11 @@ return (
          <hr  className="line"/>
         
         <div className="error">{confirmPasswordError}</div>
+
+        <Switch
+        isTrue={admin}
+        handleToggle={() => setAdmin(!admin)}
+      />
 
         <button onClick={Actualizar} type="submit">Actualizar</button>
 

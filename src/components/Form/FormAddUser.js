@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import "../../assets/Form.css";
+import Switch from "../Switch/Switch";
 
 
 function validateEmail(email) {
@@ -39,6 +40,8 @@ function Form() {
   const [emailError, setEmailError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [admin, setAdmin] = useState(false);
+  
   const dirUpdateButton = '/users'
   const urlApi = 'http://127.0.0.1:8000/add-user' 
   let history = useHistory();
@@ -81,7 +84,7 @@ function Form() {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email:email, password: password })
+      body: JSON.stringify({email:email, password: password, admin:admin})
     };
       fetch(urlApi, requestOptions)
       .then(response => response.json())
@@ -129,7 +132,12 @@ function Form() {
         
         <div className="error">{confirmPasswordError}</div>
 
-        <button onClick={Agregar} type="submit">Agregar</button>
+      <Switch
+        isTrue={admin}
+        handleToggle={() => setAdmin(!admin)}
+      />
+
+        <button onClick={Agregar} type="submit" >Agregar</button>
       </form>
     </div>
   );
