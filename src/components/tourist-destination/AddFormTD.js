@@ -26,8 +26,61 @@ const initialForm ={
     is_forest: false,
     is_volcano: false,
     is_mountain: false,
+    start_season: '',
+    end_season: '',
     conservation_area_id: ''
 };
+
+const months = [
+    {
+        id: 1,
+        month:"Enero"
+    },
+    {
+        id: 2,
+        month: "Febrero",
+    },
+    {
+        id: 3,
+        month: "Marzo",
+    },
+    {
+        id: 4,
+        month: "Abril",
+    },
+    {
+        id: 5,
+        month: "Mayo",
+    },
+    {
+        id:6,
+        month: "Junio",
+    },
+    {
+        id: 7,
+        month: "Julio",
+    },
+    {
+        id: 8,
+        month: "Agosto",
+    },
+    {
+        id: 9,
+        month: "Septiembre",
+    },
+    {
+        id: 10,
+        month: "Octubre",
+    },
+    {
+        id: 11,
+        month: "Noviembre",
+    },
+    {
+        id: 12,
+        month: "Diciembre",
+    }
+]
 
 const AddFormCA = () => {
     const [form, setForm] = useState(initialForm);
@@ -66,7 +119,8 @@ const AddFormCA = () => {
                                 form.difficulty !== initialForm.difficulty &&
                                 form.latitude !== initialForm.latitude &&
                                 form.longitude !== initialForm.longitude &&
-                                form.difficulty !== initialForm.difficulty &&
+                                form.start_season !== initialForm.start_season &&
+                                form.end_season !== initialForm.end_season &&
                                 photos);
 
     const createData = (data) => {
@@ -118,6 +172,7 @@ const AddFormCA = () => {
             ...form,
             [e.target.name]: e.target.value,
         });
+        console.log(form)
     };
 
     const handleSubmit = () => {
@@ -140,7 +195,7 @@ const AddFormCA = () => {
             {error && <Message msg={`Error ${error.status}: ${error.statusText}`} bgColor="#dc3545"/>}
             <FormLabel>Información</FormLabel>
             <Form.Group className='form-group' md="1" controlId="validationName">
-                <Form.Label claassName='form-label'>Nombre:</Form.Label>
+                <Form.Label className='form-label'>Nombre:</Form.Label>
                 <Form.Control
                     //className="form-control"
                     name='name'
@@ -155,8 +210,9 @@ const AddFormCA = () => {
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className='form-group' md="1" controlId="validationConservationArea">
-                <Form.Label claassName='form-label'>Área de Conservación:</Form.Label>
-                <Form.Select isValid={form.conservation_area_id !== ''} isInvalid={form.conservation_area_id === ''} name='conservation_area_id' onChange={handleChange}>
+                <Form.Label className='form-label'>Área de Conservación:</Form.Label>
+                <Form.Select isValid={form.conservation_area_id !== ''} isInvalid={form.conservation_area_id === ''}
+                             name='conservation_area_id' onClick={handleChange}>
                     <option value=''>Seleccione un Área de Conservación</option>
                     {
                         (conservationArea.length > 0) &&
@@ -245,7 +301,7 @@ const AddFormCA = () => {
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className='form-group' md="4" controlId="validationHikes">
-                <Form.Label claassName='form-label'>Caminatas:</Form.Label>
+                <Form.Label className='form-label'>Caminatas:</Form.Label>
                 <Form.Control
                     //className="form-control"
                     name='hikes'
@@ -260,7 +316,7 @@ const AddFormCA = () => {
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className='form-group' md="1" controlId="validationConservationArea">
-                <Form.Label claassName='form-label'>Dificultad:</Form.Label>
+                <Form.Label className='form-label'>Dificultad:</Form.Label>
                 <Form.Select isValid={form.difficulty !== ''} isInvalid={form.difficulty === ''} name='difficulty' onChange={handleChange}>
                     <option value=''>Dificultad del Sitio</option>
                     <option value={1}>1</option>
@@ -276,7 +332,7 @@ const AddFormCA = () => {
             <Row lg={2} >
                 <Col md='auto'>
                     <Form.Group className='form-group' md="4" controlId="validationLatitude">
-                        <Form.Label claassName='form-label'>Latitud:</Form.Label>
+                        <Form.Label className='form-label'>Latitud:</Form.Label>
                         <Form.Control
                             //className="form-control"
                             name='latitude'
@@ -293,7 +349,7 @@ const AddFormCA = () => {
                 </Col>
                 <Col md='auto'>
                     <Form.Group className='form-group' md="1" controlId="validationLongitude">
-                        <Form.Label claassName='form-label'>Longitud:</Form.Label>
+                        <Form.Label className='form-label'>Longitud:</Form.Label>
                         <Form.Control
                             //className="form-control"
                             name='longitude'
@@ -309,8 +365,44 @@ const AddFormCA = () => {
                     </Form.Group>
                 </Col>
             </Row>
+            <Row lg={2} >
+                <Col md='auto'>
+                    <Form.Group className='form-group' md="4" controlId="validationSeasonStart">
+                        <Form.Label className='form-label'>Mes inicio de Temporada:</Form.Label>
+                        <Form.Select isValid={form.start_season !== 0} isInvalid={form.start_season === 0}
+                                     value={form.start_season} name='start_season' onChange={handleChange}>
+                        <option value={0}>Inicio de Temporada</option>
+                            {
+                                months.map( (element) =>
+                                    <option key={element.id} value={element.id}>{element.month}</option>
+                                )
+                            }
+                    </Form.Select>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione una mes de inicio.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                </Col>
+                <Col md='auto'>
+                    <Form.Group className='form-group' md="1" controlId="validationSeasonEnd">
+                        <Form.Label className='form-label'>Mes final de Temporada:</Form.Label>
+                        <Form.Select  isValid={form.end_season !== 0}
+                                     isInvalid={form.end_season === 0} value={form.end_season} name='end_season' onChange={handleChange}>
+                            <option value={0}>Fin de Temporada</option>
+                            {
+                                months.map( (element) =>
+                                    <option key={element.id} value={element.id}>{element.month}</option>
+                                )
+                            }
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione una mes de fin.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                </Col>
+            </Row>
             <Form.Group className="mb-3">
-                <Form.Label claassName='form-label'>Etiquetas:</Form.Label>
+                <Form.Label className='form-label'>Etiquetas:</Form.Label>
                 <Row sm={4}>
                     <Col md="auto">
                         <Form.Check

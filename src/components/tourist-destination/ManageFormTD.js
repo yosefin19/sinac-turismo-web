@@ -26,8 +26,61 @@ const initialForm ={
     is_forest: false,
     is_volcano: false,
     is_mountain: false,
+    start_season: '',
+    end_season: '',
     conservation_area_id: ''
 };
+
+const months = [
+    {
+        id: 1,
+        month:"Enero"
+    },
+    {
+        id: 2,
+        month: "Febrero",
+    },
+    {
+        id: 3,
+        month: "Marzo",
+    },
+    {
+        id: 4,
+        month: "Abril",
+    },
+    {
+        id: 5,
+        month: "Mayo",
+    },
+    {
+        id:6,
+        month: "Junio",
+    },
+    {
+        id: 7,
+        month: "Julio",
+    },
+    {
+        id: 8,
+        month: "Agosto",
+    },
+    {
+        id: 9,
+        month: "Septiembre",
+    },
+    {
+        id: 10,
+        month: "Octubre",
+    },
+    {
+        id: 11,
+        month: "Noviembre",
+    },
+    {
+        id: 12,
+        month: "Diciembre",
+    }
+]
 
 const ManageFormTD = () => {
     const [form, setForm] = useState(initialForm);
@@ -44,11 +97,9 @@ const ManageFormTD = () => {
 
     useEffect(() => {
         let endpoint = `${API_URL}${AREAS_URL}`
-        //console.log(endpoint)
         helpApi()
             .get(endpoint)
             .then((res) => {
-                //console.log(res);
                 if (!res.err) {
                     setConservationArea(res);
                     setError(null);
@@ -61,17 +112,13 @@ const ManageFormTD = () => {
 
     useEffect(() => {
             let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
-            //console.log(endpoint)
             helpApi()
                 .get(endpoint)
                 .then((res) => {
-                    //console.log(res);
                     if (!res.err) {
-                        //console.log("actu form")
                         //res.photos_path = res.photos_path.split(",").map(e => `${api_url}${e}`)
                         //res.region_path = `${api_url}${res.region_path}`
                         setForm(res);
-                        //console.log(res)
                         setError(false);
                     } else {
                         setForm(initialForm);
@@ -83,14 +130,11 @@ const ManageFormTD = () => {
 
     const updateData = (data) => {
         let endpoint = `${url}${id}`
-        //console.log(data)
-        //console.log(endpoint)
         let options = {
             body: data,
             headers: { "content-type": "application/json" },
         };
         api.post(endpoint, options).then((res) => {
-            //console.log(res)
             if (!res.err) {
                 updateImages(res.id)
                 setForm(initialForm)
@@ -122,7 +166,6 @@ const ManageFormTD = () => {
     }
 
     const handlePhoto = (e) => {
-        //console.log(e.target.files)
         setPhotos(e.target.files)
     }
 
@@ -131,7 +174,6 @@ const ManageFormTD = () => {
             ...form,
             [e.target.name]: e.target.value,
         });
-        //console.log(form)
     };
 
     const handlePress = (e) => {
@@ -152,11 +194,12 @@ const ManageFormTD = () => {
         form.latitude !== initialForm.latitude &&
         form.longitude !== initialForm.longitude &&
         form.difficulty !== initialForm.difficulty &&
+        form.start_season !== initialForm.start_season &&
+        form.end_season !== initialForm.end_season &&
         photos);
 
     const handleSubmit = () => {
         if (validatedData && !error){
-            //console.log(form)
             updateData(form)
             setValidated(true)
         }
@@ -169,7 +212,6 @@ const ManageFormTD = () => {
 
     const handleDelete = () => {
         let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
-        console.log(endpoint)
         api.del(endpoint).then((res) => {
             if (!res.err) {
                 setForm(initialForm)
@@ -279,7 +321,6 @@ const ManageFormTD = () => {
             <Form.Group className='form-group' md="1" controlId="validationRecommendation">
                 <Form.Label className='form-label'>Recomendaciones:</Form.Label>
                 <Form.Control
-                    //style={{fontSize: '12px', height: '100px',}}
                     as="textarea"
                     name='recommendation'
                     onChange={handleChange}
@@ -294,7 +335,6 @@ const ManageFormTD = () => {
             <Form.Group className='form-group' md="4" controlId="validationHikes">
                 <Form.Label className='form-label'>Caminatas:</Form.Label>
                 <Form.Control
-                    //className="form-control"
                     name='hikes'
                     onChange={handleChange}
                     value={form.hikes}
@@ -325,7 +365,6 @@ const ManageFormTD = () => {
                     <Form.Group className='form-group' md="4" controlId="validationLatitude">
                         <Form.Label className='form-label'>Latitud:</Form.Label>
                         <Form.Control
-                            //className="form-control"
                             name='latitude'
                             onChange={handleChange}
                             value={form.latitude}
@@ -342,7 +381,6 @@ const ManageFormTD = () => {
                     <Form.Group className='form-group' md="1" controlId="validationLongitude">
                         <Form.Label className='form-label'>Longitud:</Form.Label>
                         <Form.Control
-                            //className="form-control"
                             name='longitude'
                             onChange={handleChange}
                             value={form.longitude}
@@ -356,26 +394,64 @@ const ManageFormTD = () => {
                     </Form.Group>
                 </Col>
             </Row>
+            <Row lg={2} >
+                <Col md='auto'>
+                    <Form.Group className='form-group' md="4" controlId="validationSeasonStart">
+                        <Form.Label className='form-label'>Mes inicio de Temporada:</Form.Label>
+                        <Form.Select isValid={form.start_season !== ''} isInvalid={form.start_season === ''} name='start_season' onChange={handleChange}>
+                            <option value={0}>{(form.start_season > 0) ? months[(form.start_season-1)].month : "Inicio de Temporada"}</option>
+                            {
+                                months.map( (element) =>
+                                    <option key={element.id} value={element.id}>{element.month}</option>
+                                )
+                            }
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione una mes de inicio.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                </Col>
+                <Col md='auto'>
+                    <Form.Group className='form-group' md="1" controlId="validationSeasonEnd">
+                        <Form.Label className='form-label'>Mes inicio de Temporada:</Form.Label>
+                        <Form.Select isValid={form.end_season !== ''} isInvalid={form.end_season === ''} name='end_season' onChange={handleChange}>
+                            <option value={0}>{(form.end_season > 0) ? months[(form.end_season-1)].month : "Fin de Temporada"}</option>
+                            {
+                                months.map( (element) =>
+                                    <option key={element.id} value={element.id}>{element.month}</option>
+                                )
+                            }
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione una mes de fin.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                </Col>
+            </Row>
             <Form.Group className="mb-3">
                 <Form.Label className='form-label'>Etiquetas:</Form.Label>
                 <Row sm={4}>
                     <Col md="auto">
                         <Form.Check
                             name='is_beach'
+                            checked={form.is_beach}
                             value={form.is_beach}
                             onChange={handlePress}
                             label="Playa"
                         /></Col>
                     <Col md="auto">
                         <Form.Check
+                            type='checkbox'
                             name='is_forest'
                             value={form.is_forest}
                             onChange={handlePress}
+                            checked={form.is_forest}
                             label="Bosque"
                         /></Col>
                     <Col md="auto">
                         <Form.Check
                             name='is_volcano'
+                            checked={form.is_volcano}
                             value={form.is_volcano}
                             onChange={handlePress}
                             label="Volcan"
@@ -383,6 +459,7 @@ const ManageFormTD = () => {
                     <Col md="auto">
                         <Form.Check
                             name='is_mountain'
+                            checked={form.is_mountain}
                             value={form.is_mountain}
                             onChange={handlePress}
                             label="Montaña"
@@ -393,7 +470,6 @@ const ManageFormTD = () => {
             <Form.Group className='form-group' md="1" controlId="formFileMultiple">
                 <Form.Label className='form-label'>Seleccione fotografías del lugar:</Form.Label>
                 <Form.Control
-                    //className="form-control"
                     required
                     type="file"
                     multiple
