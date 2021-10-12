@@ -2,6 +2,8 @@ import React from "react";
 import {FaHiking} from 'react-icons/fa'
 import {AiFillHome} from 'react-icons/ai'
 import {GiMountainRoad} from 'react-icons/gi'
+import * as FaIcons from 'react-icons/fa';
+import * as CgIcons from 'react-icons/cg';
 
 export const SideBarData = [
     {
@@ -22,6 +24,18 @@ export const SideBarData = [
         icon: <FaHiking/>,
         cName: 'nav-text'
     },
+    {
+        title: 'Usuarios',
+        path: '/users',
+        icon: <FaIcons.FaUserAlt />,
+        cName: 'nav-text'
+      },
+      {
+        title: 'Perfiles',
+        path: '/profiles',
+        icon: <CgIcons.CgProfile/>,
+        cName: 'nav-text'
+      },
 ]
 
 /*const SideBar = ({open}) => {

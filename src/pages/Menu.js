@@ -1,4 +1,5 @@
 import {Card, Col, Figure, Row} from "react-bootstrap";
+
 import {FaHiking, FaUserAlt, FaUserCircle} from 'react-icons/fa'
 import {GiMountainRoad} from 'react-icons/gi'
 
@@ -17,7 +18,7 @@ const Menu = () => {
                           <Row className="row">
                               <Col className="col">
                                   <Link to='/conservation-area'>
-                                      <Card className='card text-center' to="/conservation-area">
+                                      <Card className='element text-center' to="/conservation-area">
                                           <Figure className="figure">
                                               <GiMountainRoad  className='icon'/>
                                               <Figure.Caption className='caption'>
@@ -30,7 +31,7 @@ const Menu = () => {
                               </Col>
                               <Col className="col">
                                   <Link to='/tourist-destination'>
-                                      <Card className='card text-center'>
+                                      <Card className='element text-center'>
                                           <Figure className="figure">
                                               <FaHiking  className='icon'/>
                                               <Figure.Caption className='caption'>
@@ -44,7 +45,7 @@ const Menu = () => {
                           <Row>
                               <Col>
                                   <Link to="/users">
-                                      <Card className='card text-center' >
+                                      <Card className='element text-center' >
                                           <Figure className="figure">
                                               <FaUserAlt className='icon'/>
                                               <Figure.Caption className='caption'>
@@ -56,7 +57,7 @@ const Menu = () => {
                               </Col>
                               <Col>
                                   <Link to="/profiles">
-                                      <Card className='card text-center'>
+                                      <Card className='element text-center'>
                                           <Figure className="figure">
                                               <FaUserCircle className='icon'/>
                                               <Figure.Caption className='caption'>
