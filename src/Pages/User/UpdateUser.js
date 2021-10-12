@@ -1,15 +1,16 @@
 import React from 'react';
+import '../../assets/cuadro.css';
 import { useParams } from 'react-router-dom';
 import Form from '../../components/Form/FormUpdateUser'
-import '../../assets/Card.css'
 import {useState, useEffect} from "react";
-
+import NavBar from "../../components/NavBar";
+import {API_URL} from "../../config";
   
 function UpdateUser() {
 
 let {id} = useParams()
 
-const apiUrl = `http://127.0.0.1:8000/users/`+id;
+const apiUrl = `${API_URL}users/`+id;
 
 const [user, setItems] = useState([]);
 
@@ -25,8 +26,9 @@ useEffect(() => {
 
 
 return (
-  <section className='card'>
-
+  <div>
+  <NavBar/>
+  <div className='panel'>
   <div className='header'>
        
       <h1 className='header-text'>Administrar Usuarios</h1>
@@ -38,8 +40,11 @@ return (
      <Form data = {user} id = {id} /> 
 
     </div>
+   </div>
 
-  </section>
+    </div>
+
+
   );
 
 

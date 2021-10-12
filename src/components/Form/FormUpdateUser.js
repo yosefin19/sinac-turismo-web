@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory} from 'react-router-dom';
 import "../../assets/Form.css";
 import Switch from "../Switch/Switch";
-
-const urlApi = 'http://127.0.0.1:8000/' 
+import {API_URL} from "../../config";
 
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -84,12 +83,15 @@ function Form(props) {
 
   const Actualizar = () => {
   
-   const url =  'http://127.0.0.1:8000/update-user/'+idUser;
+   const url =  `${API_URL}update-user/${idUser}`;
+   console.log(admin)
+   console.log(url)
+      console.log({id:idUser, email:email, password: password, admin:admin})
 
    const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({email:email, password: password, admin:admin})
+    body: JSON.stringify({id:idUser, email:email, password: password, admin:admin})
   };
     fetch(url, requestOptions)
     .then(response => response.json())
@@ -97,12 +99,12 @@ function Form(props) {
    history.push({
     pathname: dirUpdateButton,
    })
-   window.history.go()
+   /*window.history.go()*/
 }
 
   const Eliminar = () => {
     
-  const url = 'http://127.0.0.1:8000/delete-user/' + idUser ;
+  const url = `${API_URL}delete-user/${idUser}` ;
 
   fetch(url, { method: 'DELETE' }).then(response => response.json())
     
@@ -150,16 +152,17 @@ return (
          <hr  className="line"/>
         
         <div className="error">{confirmPasswordError}</div>
-
+        <h1 className='text'>Usuario Administrador:</h1>
         <Switch
         isTrue={admin}
+
         handleToggle={() => setAdmin(!admin)}
       />
 
-        <button onClick={Actualizar} type="submit">Actualizar</button>
+        <button className ='button' onClick={Actualizar}>Actualizar</button>
 
 
-        <button  onClick={Eliminar} type="submit">Eliminar</button>
+        <button  className ='button' onClick={Eliminar}>Eliminar</button>
 
 
       </form>

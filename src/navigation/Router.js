@@ -7,14 +7,22 @@ import AddTouristDestination from "../components/tourist-destination/AddTouristD
 import ManagerTouristDestination from "../components/tourist-destination/ManagerTouristDestination";
 import AddConservationArea from "../components/conservationarea/AddConservationArea";
 import ManageConservationArea from "../components/conservationarea/ManageConservationArea";
+import Users from "../Pages/User/Users";
+import AddUser from "../Pages/User/AddUser";
+import UpdateUser from "../Pages/User/UpdateUser";
+import React from "react";
 
 
 const Router = () => {
     return(
             <HashRouter>
+            
                 <Switch base="sinac-turismo">
                    <Route exact path="/" component={Menu}/>
                    <Route exact path="/menu" component={Menu}/>
+                    <Route exact path='/users' component={Users} />
+                    <Route exact path='/add-user' component={AddUser} />
+                    <Route exact path='/update-user/:id'  component={UpdateUser} />
                    <Route exact path="/conservation-area" component={ConservationArea}/>
                    <Route exact path="/conservation-area/add" component={AddConservationArea}/>
                     <Route exact path="/conservation-area/:id" component={ManageConservationArea}/>

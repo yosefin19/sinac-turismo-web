@@ -1,7 +1,9 @@
-import '../../assets/Card.css';
-import Table, {   UpdateButton } from '../../components/Table/Table';
-import "../../assets/Table.css"
+import '../../assets/cuadro.css';
+import CustonTable, {   UpdateButton } from '../../components/Table/CustonTable';
+
+import NavBar from "../../components/NavBar";
 import React,{ Component} from 'react'
+import {API_URL} from "../../config";
 
 export default class Users extends Component {
 
@@ -12,7 +14,7 @@ export default class Users extends Component {
     }
   }
   async getData () {
-    fetch('http://127.0.0.1:8000/users')
+    fetch(`${API_URL}users`)
     .then(res => res.json())
     .then((data) => {
       this.setState({ users: data })
@@ -53,16 +55,12 @@ render(){
 
 
   return (
-    
-    <section className='card'>
-
-    <main className="main">
-    
-    <Table name = "Administrar Usuarios"  columns={columns} data={this.state.users} dir = 'user'/>
- 
-   </main>
-
-      </section>
+    <div>
+      <NavBar/>
+    <div className='panel'>
+        <CustonTable name = "Administrar Usuarios" columns={columns} data={this.state.users} dir = 'user'/>
+        </div>
+        </div>
   )
 
     }

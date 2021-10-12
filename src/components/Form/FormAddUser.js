@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import "../../assets/Form.css";
 import Switch from "../Switch/Switch";
 
+import {API_URL} from "../../config";
+
 
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -43,7 +45,7 @@ function Form() {
   const [admin, setAdmin] = useState(false);
   
   const dirUpdateButton = '/users'
-  const urlApi = 'http://127.0.0.1:8000/add-user' 
+  const urlApi = `${API_URL}add-user`
   let history = useHistory();
   const [password, setPassword, passwordError] = usePasswordValidator({
     min: 8,
@@ -80,20 +82,17 @@ function Form() {
   );
 
   const Agregar = () => {
-
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email:email, password: password, admin:admin})
+      body: JSON.stringify({id: 0,email:email, password: password, admin:admin})
     };
       fetch(urlApi, requestOptions)
-      .then(response => response.json())
-
-
-    history.push({
-      pathname: dirUpdateButton,
-     })
-     window.history.go()
+      .then(response => console.log(response.json()))
+      history.push({
+          pathname: dirUpdateButton,
+      })
+      /*window.history.go()*/
   }
   return (
     <div>
@@ -136,8 +135,7 @@ function Form() {
         isTrue={admin}
         handleToggle={() => setAdmin(!admin)}
       />
-
-        <button onClick={Agregar} type="submit" >Agregar</button>
+          <button className ='button' onClick={Agregar} >Agregar</button>
       </form>
     </div>
   );

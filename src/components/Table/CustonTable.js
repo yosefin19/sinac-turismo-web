@@ -4,6 +4,7 @@ import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, usePagination 
 import { MdOpenInNew } from "react-icons/md";
 import { PageButton, Button } from '../Button/Button'
 import '../../assets/Table.css'
+import {Row, Table} from "react-bootstrap";
 
 var dirUpdateButton = '/';
 // Filtro para busqueda para cualquier columna de la tabla
@@ -14,7 +15,7 @@ function GlobalFilter({ globalFilter, setGlobalFilter,}) {
   }, 200)
 
   return (
-      <input
+      <input style={{width: "100%", maxWidth: "30%", marginLeft:10, marginRight: "10%"}}
         type="text"
         className = 'search'
         value={value }
@@ -45,7 +46,7 @@ return(
 )
 }
 
-function Table({ name, columns, data, dir }) {
+function CustonTable({ name, columns, data, dir }) {
 
   dirUpdateButton = '/update-'+ dir +'/' ;
   const add = '/add-' + dir;
@@ -85,45 +86,31 @@ function Table({ name, columns, data, dir }) {
 
 
   return (
-    <>
-  <section >
-    <h1 >{name} </h1>
-
-    <Button 
-        onClick={handleClick} type="button" >
-      Agregar
-      </Button>
-
-
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-        
-</section>
-
-<hr  className="line" />
-      {/* Table */}
-      
-             <table {...getTableProps()} className="line" >
-                 
-                 {/*HEADER DE TBALA*/}
-                 
-                 {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()} className="header-table">
+      <>
+          <Row style={{flexDirection: "row"}}>
+              <h3 style={{width: "100%", maxWidth: "40%", margin: 6}}>{name}</h3>
+              <GlobalFilter
+                  preGlobalFilteredRows={preGlobalFilteredRows}
+                  globalFilter={state.globalFilter}
+                  setGlobalFilter={setGlobalFilter}
+              />
+              <button style={{width: "100%", maxWidth: "10%"}} onClick={handleClick} type="button" className='button' >
+                  Agregar
+              </button>
+          </Row>
+          <hr  className="line" />
+          {/* CustonTable */}
+          <Table striped hover size="lg" responsive="lg" {...getTableProps()} className="line" >
+              {/*HEADER DE TBALA*/}
+              {headerGroups.map(headerGroup => (
+                  <tr style={{textAlign: "center"}} {...headerGroup.getHeaderGroupProps()} className="header-table">
                       {headerGroup.headers.map(column => (
-                        <th
-                          scope="col"
-                          
-                          {...column.getHeaderProps(column)}
-                        >
-                            {column.render('Header')}
-                            
-                        </th>
+                          <th scope="col" {...column.getHeaderProps(column)}>
+                              {column.render('Header')}
+                          </th>
                       ))}
-                    </tr>
-                  ))}
+                  </tr>
+              ))}
 
                 
                   {/*VALORES TBALA*/}
@@ -155,25 +142,28 @@ function Table({ name, columns, data, dir }) {
                  
                 </tbody>
                
-              </table>
+              </Table>
         
               <hr  className="line" />
       {/* Pagination */}  
 
-          <nav className="pagination" >
-              <PageButton 
+          <nav className="pagination-button" >
+              <button 
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
+                className ='button'
               >
                 <span >Anterior</span>
-              </PageButton>
+              </button>
 
-              <PageButton
+              <button
                 onClick={() => nextPage()}
                 disabled={!canNextPage
-                }>
+                }
+                className ='button'
+                >
                 <span className='button' >Siguiente</span>
-              </PageButton>
+              </button>
 
             </nav>
 
@@ -182,4 +172,4 @@ function Table({ name, columns, data, dir }) {
   )
 }
 
-export default Table;
+export default CustonTable;
