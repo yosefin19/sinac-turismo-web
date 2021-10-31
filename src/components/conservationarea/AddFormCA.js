@@ -38,7 +38,6 @@ const AddFormCA = () => {
                 headers: { "content-type": "application/json" },
             };
             api.post(url, options).then((res) => {
-                console.log(res);
                 if (!res.err) {
                     sendImages(res.id)
                     setForm(initialForm)
@@ -87,7 +86,6 @@ const AddFormCA = () => {
     };
 
     const handleSubmit = () => {
-         console.log(validatedData)
          if(validatedData){
             createData(form)
             setValidated(true)
@@ -100,7 +98,7 @@ const AddFormCA = () => {
             {error && <Message msg={`Error ${error.status}: ${error.statusText}`} bgColor="#dc3545"/>}
             <FormLabel>Información</FormLabel>
             <Form.Group className='form-group' md="1" controlId="validationName">
-                <Form.Label claassName='form-label'>Nombre:</Form.Label>
+                <Form.Label className='form-label'>Nombre:</Form.Label>
                 <Form.Control
                     //className="form-control"
                     name='name'

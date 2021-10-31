@@ -14,7 +14,6 @@ const TableRowCA = ({element}) => {
     let {name, description, id, photos_path} = element;
 
     let photos = photos_path.split(",");
-    console.log(`${IMAGE_BASE_URL}${photos[0]}`)
     return(
         <tr>
             <td style={{display: "flex", justifyContent: 'center', alignItems: 'center',}}>

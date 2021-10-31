@@ -121,7 +121,7 @@ const ManageFormCA = () => {
     const handleShow = () => setShow(true);
 
     const handleDelete = () => {
-        let endpoint = `${url}${id}`
+        let endpoint = `${API_URL}${AREAS_URL}${id}`
         api.del(endpoint).then((res) => {
             if (!res.err) {
                 setForm(initialForm)
@@ -201,7 +201,7 @@ const ManageFormCA = () => {
                 </Modal.Header>
                 <Modal.Body>Esta seguro que desea eliminar los datos del área de conservación: {form.name}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant='secondary' onClick={handleDelete}>Cancelar</Button>
+                    <Button variant='secondary' onClick={handleClose}>Cancelar</Button>
                     <Button variant="danger" onClick={handleDelete}>Eliminar</Button>
                 </Modal.Footer>
             </Modal>
