@@ -1,4 +1,3 @@
-import './App.css';
 import Router from "./navigation/Router";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
