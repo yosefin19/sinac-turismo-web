@@ -1,7 +1,6 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import Form from '../../components/Form/FormAddProfile'
-import '../../assets/Card.css'
+
   
 function AddUser() {
   

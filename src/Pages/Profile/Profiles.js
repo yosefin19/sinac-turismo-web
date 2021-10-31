@@ -1,8 +1,7 @@
 
-import '../../assets/Card.css';
 import Table, {  AvatarCell, UpdateButton } from '../../components/Table/Table';
-import "../../assets/Table.css"
 import React,{ Component} from 'react'
+import NavBar from "../../components/NavBar";
 
 
 export default class Users extends Component {
@@ -14,7 +13,7 @@ export default class Users extends Component {
     }
   }
   async getData () {
-    fetch('http://127.0.0.1:8000/profiles')
+    fetch('http://40.76.245.64:8000/profiles')
     .then(res => res.json())
     .then((data) => {
       this.setState({ users: data })
@@ -61,17 +60,14 @@ componentDidMount(){
   ]
 
   return (
-    
-    <section className='card'>
 
-      
-    <main className="main">
+      <div>
+        <NavBar/>
+        <div className='panel'>
         
         <Table name = "Administrar Perfiles"  columns={columns} data={this.state.users} dir = 'profile'/>
-      
-     </main>
 
-     </section>
-
+        </div>
+      </div>
   )
       }}

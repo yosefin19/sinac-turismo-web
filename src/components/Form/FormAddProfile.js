@@ -20,7 +20,7 @@ function Form() {
   const [cover, setCover] = useState(null);
 
   const dirUpdateButton = '/profiles'
-  const urlApi = 'http://127.0.0.1:8000/add-profile' 
+  const urlApi = 'http://40.76.245.64:8000/add-profile' 
   const history = useHistory();
   
   useEffect(
@@ -59,7 +59,7 @@ function Form() {
   }
   const addImage = (id, type) =>{
  
-    const url =  'http://127.0.0.1:8000/profiles/photo/'+type+ '/'+id
+    const url =  'http://40.76.245.64:8000/profiles/photo/'+type+ '/'+id
 
     const formPhotos = new FormData();
     if(type == 'cover'){

@@ -2,12 +2,12 @@ import React from 'react';
 import {useState, useEffect} from "react";
 import { useParams } from 'react-router-dom';
 import Form from '../../components/Form/FormUpdateProfile'
-import '../../assets/Card.css'
+
 
 function UpdateProfile() {
   let {id} = useParams()
 
-  const apiUrl = `http://127.0.0.1:8000/profiles/`+id;
+  const apiUrl = `http://40.76.245.64:8000/profiles/`+id;
   
   const [user, setItems] = useState([]);
   
