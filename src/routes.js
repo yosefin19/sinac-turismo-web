@@ -24,7 +24,7 @@ export const routes = [
   },
   {
     title: 'Usuarios',
-    path: '/',
+    path: '/users',
     icon: <FaIcons.FaUserAlt />,
     cName: 'nav-text'
   },

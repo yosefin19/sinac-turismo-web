@@ -1,27 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Header from './components/Header/Header';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Profiles from './Pages/Profile/Profiles';
-import AddProfile from './Pages/Profile/AddProfile'
-import UpdateProfile from './Pages/Profile/UpdateProfile'
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <>
-      <body>
-      <Router>
-      <Header />
-        <Switch>
-          <Route exact path='/profiles' component={Profiles} />
-          <Route exact path='/add-profile' component={AddProfile} />
-          <Route exact path='/update-profile/:id' component={UpdateProfile} />
-
-        </Switch>
-      </Router>
-    </body>
-    </>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <title>SINAC Turismo</title>
+        <App />
+    </React.StrictMode>,
+    document.getElementById('root')
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
