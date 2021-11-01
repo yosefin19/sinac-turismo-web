@@ -5,7 +5,7 @@ import "./TouristDestinationSection.css"
 import ManageFormTD from "./ManageFormTD";
 
 const ManagerTouristDestination = () => {
-    return(
+    return (
         <div>
             <NavBar/>
             <div className="section">

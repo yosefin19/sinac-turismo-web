@@ -1,25 +1,16 @@
-.cuadro {
-    margin-top: 100px;
-    margin-left: 330px;
-    background-color:white;
-    width: 83%;
-    height: 800px;
-    border-radius: 10px;
-  }
-
-  .body {
+.body-cuadro {
     text-align: left;
     margin-left: 55px;
 
-  }
-  
-  .header{
+}
+
+.header-cuadro {
     text-align: left;
     margin-bottom: 15px;
-  }
+}
 
-  .header-text{
+.header-text-cuadro {
     font-size: 25px;
     margin-top: 25px;
     margin-left: 25px;
-  }
+}

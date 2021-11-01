@@ -1,5 +1,6 @@
 import {Button, Col, Form, FormLabel, Modal, Row} from "react-bootstrap";
 
+
 import {useEffect, useState} from "react";
 import {helpApi} from "../../helper/helpApi";
 import {useHistory, useParams} from "react-router-dom";
@@ -7,7 +8,7 @@ import Message from "../Message";
 import './ConservationAreaForm.css'
 import {API_URL, AREAS_URL} from "../../config";
 
-const initialForm ={
+const initialForm = {
     id: 0,
     name: "",
     description: "",
@@ -30,8 +31,8 @@ const ManageFormCA = () => {
     let api = helpApi()
 
     useEffect(() => {
-        let endpoint = `${API_URL}${AREAS_URL}${id}`
-        console.log(endpoint)
+            let endpoint = `${API_URL}${AREAS_URL}${id}`
+            console.log(endpoint)
             helpApi()
                 .get(endpoint)
                 .then((res) => {
@@ -55,7 +56,7 @@ const ManageFormCA = () => {
         //console.log(endpoint);
         let options = {
             body: data,
-            headers: { "content-type": "application/json" },
+            headers: {"content-type": "application/json"},
         };
         api.post(endpoint, options).then((res) => {
             if (!res.err) {
@@ -93,7 +94,7 @@ const ManageFormCA = () => {
         //console.log(e.target.files)
         setPhotos(e.target.files)
     }
-    
+
     const handleRegion = (e) => {
         setRegion(e.target.files[0])
     }
@@ -108,11 +109,10 @@ const ManageFormCA = () => {
     const validatedData = !!(form.name !== '' && form.description !== '' && photos && region);
 
     const handleSubmit = () => {
-        if (validatedData && !error){
+        if (validatedData && !error) {
             updateData(form)
             setValidated(true)
-        }
-        else setValidated(true);
+        } else setValidated(true);
     };
 
     const handleClose = () => setShow(false);
@@ -133,8 +133,8 @@ const ManageFormCA = () => {
         });
     }
 
-    return(
-        <Form to="/conservation-area" noValidate validated={validated} style={{paddingLeft: "61px", }}>
+    return (
+        <Form to="/conservation-area" noValidate validated={validated} style={{paddingLeft: "61px",}}>
             {error && <Message msg={`Error ${error.status}: ${error.statusText}`} bgColor="#dc3545"/>}
             <FormLabel>Información</FormLabel>
             <Form.Group className='form-group' md="1" controlId="validationCustom03">
@@ -204,9 +204,9 @@ const ManageFormCA = () => {
                     <Button variant="danger" onClick={handleDelete}>Eliminar</Button>
                 </Modal.Footer>
             </Modal>
-            <Row className='text-center' >
+            <Row className='text-center'>
                 <Col md>
-                    <Button variant='success' onClick={handleSubmit} className='confirm-button' >Actualizar</Button>
+                    <Button variant='success' onClick={handleSubmit} className='confirm-button'>Actualizar</Button>
                     <Button variant='danger' onClick={handleShow} className='delete-button'>Eliminar</Button>
                 </Col>
             </Row>

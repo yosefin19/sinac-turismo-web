@@ -8,7 +8,7 @@ import Message from "../Message";
 import './ConservationAreaForm.css'
 import {API_URL, AREAS_URL} from "../../config";
 
-const initialForm ={
+const initialForm = {
     id: 0,
     name: "",
     description: "",
@@ -28,14 +28,14 @@ const AddFormCA = () => {
     let api = helpApi();
 
 
-    const validatedData =  !!(form.name !== '' && form.description !== '' && photos && region);
+    const validatedData = !!(form.name !== '' && form.description !== '' && photos && region);
 
 
     const createData = (data) => {
-        if (validatedData){
+        if (validatedData) {
             let options = {
                 body: data,
-                headers: { "content-type": "application/json" },
+                headers: {"content-type": "application/json"},
             };
             api.post(url, options).then((res) => {
                 if (!res.err) {
@@ -51,7 +51,7 @@ const AddFormCA = () => {
         }
 
     };
-    
+
     const sendImages = (id) => {
         let endpoint = `${url}${id}/photos`
         const formPhotos = new FormData();
@@ -86,15 +86,14 @@ const AddFormCA = () => {
     };
 
     const handleSubmit = () => {
-         if(validatedData){
+        if (validatedData) {
             createData(form)
             setValidated(true)
-        }
-        else setValidated(true);
+        } else setValidated(true);
     };
 
-    return(
-        <Form noValidate validated={validated} style={{paddingLeft: "61px", }}>
+    return (
+        <Form noValidate validated={validated} style={{paddingLeft: "61px",}}>
             {error && <Message msg={`Error ${error.status}: ${error.statusText}`} bgColor="#dc3545"/>}
             <FormLabel>Información</FormLabel>
             <Form.Group className='form-group' md="1" controlId="validationName">
@@ -127,7 +126,8 @@ const AddFormCA = () => {
                     Por favor ingrese una descripción.
                 </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group style={{marginTop: '14px', marginBottom: '14px',marginRight: '50%'}} md="1" controlId="formFileMultiple">
+            <Form.Group style={{marginTop: '14px', marginBottom: '14px', marginRight: '50%'}} md="1"
+                        controlId="formFileMultiple">
                 <Form.Label style={{fontSize: '14px'}}>Seleccione fotografías del lugar:</Form.Label>
                 <Form.Control
                     //className="form-control"
@@ -152,9 +152,9 @@ const AddFormCA = () => {
                     Por favor agrege una imagen del mapa de la región.
                 </Form.Control.Feedback>
             </Form.Group>
-            <Row className='text-center' >
+            <Row className='text-center'>
                 <Col md>
-                    <Button variant='danger' onClick={handleSubmit} className='confirm-button' >Registrar</Button>
+                    <Button variant='danger' onClick={handleSubmit} className='confirm-button'>Registrar</Button>
                 </Col>
             </Row>
         </Form>

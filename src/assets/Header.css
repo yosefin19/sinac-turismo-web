@@ -1,9 +1,9 @@
-  .header {
-    margin-top: 0px;
+.header-cuadro {
+    margin-top: 0;
     background-color: white;
     display: flex;
     flex: 1;
     flex-direction: column;
     width: 100%;
     height: 80px;
-  }
+}

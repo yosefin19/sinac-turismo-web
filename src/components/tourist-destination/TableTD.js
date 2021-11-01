@@ -4,7 +4,7 @@ import TableRowCA from "./TableRowTD";
 const styles = {textAlign: 'center', alignItems: 'center',}
 
 const TableTD = ({data}) => {
-    return(
+    return (
         <Table striped hover size="lg" responsive="lg">
             <thead>
             <tr>
