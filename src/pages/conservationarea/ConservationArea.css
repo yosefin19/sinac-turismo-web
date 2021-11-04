@@ -1,0 +1,52 @@
+.section {
+    width: 100%;
+    height: 100%;
+    border: #383837;
+    alignment: center;
+}
+
+.panel {
+    background-color: white;
+    margin-left: 18rem;
+    margin-right: 2rem;
+    margin-top: 2rem;;
+}
+
+.title {
+    margin-left: 1rem;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 37px;
+    letter-spacing: 0.02em;
+
+    /* Green */
+
+    color: #383837;
+    padding-top: 1rem;
+}
+
+.hr {
+    height: 80%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.confirm-button {
+    background-color: rgba(118, 159, 94, 0.6) !important;
+    border-color: rgba(118, 159, 94, 1) !important;;
+    border-radius: 4px;
+    display: table-row;
+    justify-content: left;
+    margin: auto;
+    font-family: Segoe UI, Arial, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #4A4A4A !important;
+}

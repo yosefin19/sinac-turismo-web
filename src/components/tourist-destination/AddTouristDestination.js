@@ -5,7 +5,7 @@ import "./TouristDestinationSection.css"
 import AddFormTD from "./AddFormTD";
 
 const AddTouristDestination = () => {
-    return(
+    return (
         <div>
             <NavBar/>
             <div className="section">

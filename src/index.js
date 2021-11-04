@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
     <React.StrictMode>
         <title>SINAC Turismo</title>
-        <App />
+        <App/>
     </React.StrictMode>,
     document.getElementById('root')
 );

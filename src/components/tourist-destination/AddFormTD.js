@@ -7,9 +7,9 @@ import {useHistory} from "react-router-dom";
 import Message from "../Message";
 import './TouristDestinationAreaForm.css'
 
-import {API_URL, DESTINATIONS_URL, AREAS_URL} from "../../config";
+import {API_URL, AREAS_URL, DESTINATIONS_URL} from "../../config";
 
-const initialForm ={
+const initialForm = {
     id: 0,
     name: "",
     description: "",
@@ -34,7 +34,7 @@ const initialForm ={
 const months = [
     {
         id: 1,
-        month:"Enero"
+        month: "Enero"
     },
     {
         id: 2,
@@ -53,7 +53,7 @@ const months = [
         month: "Mayo",
     },
     {
-        id:6,
+        id: 6,
         month: "Junio",
     },
     {
@@ -109,25 +109,25 @@ const AddFormCA = () => {
     let history = useHistory()
     let api = helpApi();
 
-    const validatedData =  !!(form.name !== initialForm.name &&
-                                form.description !== initialForm.description &&
-                                form.schedule !== initialForm.schedule  &&
-                                form.fare !== initialForm.fare  &&
-                                form.contact !== initialForm.contact  &&
-                                form.recommendation !== initialForm.recommendation  &&
-                                form.hikes !== initialForm.hikes  &&
-                                form.difficulty !== initialForm.difficulty &&
-                                form.latitude !== initialForm.latitude &&
-                                form.longitude !== initialForm.longitude &&
-                                form.start_season !== initialForm.start_season &&
-                                form.end_season !== initialForm.end_season &&
-                                photos);
+    const validatedData = !!(form.name !== initialForm.name &&
+        form.description !== initialForm.description &&
+        form.schedule !== initialForm.schedule &&
+        form.fare !== initialForm.fare &&
+        form.contact !== initialForm.contact &&
+        form.recommendation !== initialForm.recommendation &&
+        form.hikes !== initialForm.hikes &&
+        form.difficulty !== initialForm.difficulty &&
+        form.latitude !== initialForm.latitude &&
+        form.longitude !== initialForm.longitude &&
+        form.start_season !== initialForm.start_season &&
+        form.end_season !== initialForm.end_season &&
+        photos);
 
     const createData = (data) => {
-        if (validatedData){
+        if (validatedData) {
             let options = {
                 body: data,
-                headers: { "content-type": "application/json" },
+                headers: {"content-type": "application/json"},
             };
             api.post(url, options).then((res) => {
                 //console.log(res);
@@ -176,11 +176,10 @@ const AddFormCA = () => {
     };
 
     const handleSubmit = () => {
-        if(validatedData){
+        if (validatedData) {
             createData(form)
             setValidated(true)
-        }
-        else setValidated(true);
+        } else setValidated(true);
     };
 
     const handlePress = (e) => {
@@ -190,8 +189,8 @@ const AddFormCA = () => {
         });
     }
 
-    return(
-        <Form noValidate validated={validated} style={{paddingLeft: "61px", }}>
+    return (
+        <Form noValidate validated={validated} style={{paddingLeft: "61px",}}>
             {error && <Message msg={`Error ${error.status}: ${error.statusText}`} bgColor="#dc3545"/>}
             <FormLabel>Información</FormLabel>
             <Form.Group className='form-group' md="1" controlId="validationName">
@@ -216,9 +215,9 @@ const AddFormCA = () => {
                     <option value=''>Seleccione un Área de Conservación</option>
                     {
                         (conservationArea.length > 0) &&
-                            conservationArea.map((element) =>
-                                <option key={element.id} value={element.id}>{element.name}</option>
-                            )
+                        conservationArea.map((element) =>
+                            <option key={element.id} value={element.id}>{element.name}</option>
+                        )
                     }
                 </Form.Select>
                 <Form.Control.Feedback type="invalid">
@@ -317,7 +316,8 @@ const AddFormCA = () => {
             </Form.Group>
             <Form.Group className='form-group' md="1" controlId="validationConservationArea">
                 <Form.Label className='form-label'>Dificultad:</Form.Label>
-                <Form.Select isValid={form.difficulty !== ''} isInvalid={form.difficulty === ''} name='difficulty' onChange={handleChange}>
+                <Form.Select isValid={form.difficulty !== ''} isInvalid={form.difficulty === ''} name='difficulty'
+                             onChange={handleChange}>
                     <option value=''>Dificultad del Sitio</option>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
@@ -329,7 +329,7 @@ const AddFormCA = () => {
                     Por favor seleccione una dificultad (1:bajo, 5:alto).
                 </Form.Control.Feedback>
             </Form.Group>
-            <Row lg={2} >
+            <Row lg={2}>
                 <Col md='auto'>
                     <Form.Group className='form-group' md="4" controlId="validationLatitude">
                         <Form.Label className='form-label'>Latitud:</Form.Label>
@@ -365,19 +365,19 @@ const AddFormCA = () => {
                     </Form.Group>
                 </Col>
             </Row>
-            <Row lg={2} >
+            <Row lg={2}>
                 <Col md='auto'>
                     <Form.Group className='form-group' md="4" controlId="validationSeasonStart">
                         <Form.Label className='form-label'>Mes inicio de Temporada:</Form.Label>
                         <Form.Select isValid={form.start_season !== 0} isInvalid={form.start_season === 0}
                                      value={form.start_season} name='start_season' onChange={handleChange}>
-                        <option value={0}>Inicio de Temporada</option>
+                            <option value={0}>Inicio de Temporada</option>
                             {
-                                months.map( (element) =>
+                                months.map((element) =>
                                     <option key={element.id} value={element.id}>{element.month}</option>
                                 )
                             }
-                    </Form.Select>
+                        </Form.Select>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione una mes de inicio.
                         </Form.Control.Feedback>
@@ -386,11 +386,12 @@ const AddFormCA = () => {
                 <Col md='auto'>
                     <Form.Group className='form-group' md="1" controlId="validationSeasonEnd">
                         <Form.Label className='form-label'>Mes final de Temporada:</Form.Label>
-                        <Form.Select  isValid={form.end_season !== 0}
-                                     isInvalid={form.end_season === 0} value={form.end_season} name='end_season' onChange={handleChange}>
+                        <Form.Select isValid={form.end_season !== 0}
+                                     isInvalid={form.end_season === 0} value={form.end_season} name='end_season'
+                                     onChange={handleChange}>
                             <option value={0}>Fin de Temporada</option>
                             {
-                                months.map( (element) =>
+                                months.map((element) =>
                                     <option key={element.id} value={element.id}>{element.month}</option>
                                 )
                             }
@@ -448,9 +449,9 @@ const AddFormCA = () => {
                     Por favor agrege imagenes del lugar.
                 </Form.Control.Feedback>
             </Form.Group>
-            <Row className='text-center' >
+            <Row className='text-center'>
                 <Col md>
-                    <Button variant='success' onClick={handleSubmit} className='confirm-button' >Registrar</Button>
+                    <Button variant='success' onClick={handleSubmit} className='confirm-button'>Registrar</Button>
                 </Col>
             </Row>
         </Form>
