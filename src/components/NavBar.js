@@ -7,11 +7,17 @@ import './NavBar.css'
 import {SideBarData} from "./SideBar";
 import {Image, Navbar} from "react-bootstrap";
 import logo from '../assets/sinac.png';
+import useAuthentication from "../authentication/useAuthentication";
 
 const NavBar = () => {
     const [sideBar, setSideBar] = useState(true);
+    const authentication = useAuthentication();
 
     const handleShowSideBar = () => setSideBar(!sideBar);
+
+    const handleLogOut = () => {
+        authentication.logout();
+    }
 
     return (
         <div>
@@ -20,6 +26,7 @@ const NavBar = () => {
                     <Link to='#' className='menu-bars'>
                         <FaBars className='faBars' onClick={handleShowSideBar}/>
                     </Link>
+                    <button onClick={handleLogOut}>cerrar</button>
                 </Navbar>
                 <nav className={sideBar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={handleShowSideBar}>

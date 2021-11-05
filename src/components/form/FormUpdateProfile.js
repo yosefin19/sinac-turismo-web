@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
 import "../../assets/Form.css";
 
-const urlApi = 'http://40.76.245.64:8000/'
 
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -43,7 +42,7 @@ function Form(props) {
         const url = 'http://40.76.245.64:8000/profiles/photo/' + type + '/' + idUser
 
         const formPhotos = new FormData();
-        if (type == 'cover') {
+        if (type === 'cover') {
             formPhotos.append(`photo`, cover)
         } else {
             formPhotos.append(`photo`, profile)

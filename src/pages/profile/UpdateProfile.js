@@ -18,7 +18,7 @@ function UpdateProfile() {
                     setItems(result);
                 },
             )
-    }, [])
+    }, [apiUrl])
 
     return (
         <section className='card'>

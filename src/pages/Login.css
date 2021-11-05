@@ -1,0 +1,76 @@
+.login-section {
+    background-color: #F0F0F0;
+    alignment: center;
+}
+.login-panel {
+    margin-top: 10%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.logo-col{
+    max-width: 100%;
+    max-height: 100%;
+}
+.logo-col-icon{
+    height: 60%;
+    width: 60%;
+}
+.form-col{
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-items: center;
+}
+.form-col-title{
+    text-align: center;
+    color: #8F8F8F;
+    margin-top: 8%;
+    margin-bottom: 5%;
+}
+.form-col-form-group{
+    margin: 5% 10% 5% 10%;
+}
+.form-col-label{
+    left: 31px;
+    top: 146px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 27px;
+    color: #8F8F8F;
+}
+.form-col-input{
+    width: 433px;
+    height: 35px;
+    left: 753px;
+    top: 412px;
+
+    border: 1px solid #C4C4C4;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+}
+.submit-button{
+    width: 149px;
+    height: 32px;
+    background-color: rgba(118, 159, 94, 0.6) !important;
+    border-radius: 4px;
+    border-color: rgba(118, 159, 94, 0.6) !important;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) !important;
+    font-family: Segoe UI, Arial, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #4A4A4A !important;
+}
+.link-text{
+    font-family: Segoe UI, Arial, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #4A4A4A !important;
+}
