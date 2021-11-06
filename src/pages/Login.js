@@ -4,7 +4,7 @@ import {useState} from "react";
 import {Col, Image, Row} from "react-bootstrap";
 import "./Login.css"
 import logo from '../assets/sinac.png';
-import FormLogin from "../components/login/FormLogin";
+import LoginForm from "../components/authentication/LoginForm";
 
 const Login = () => {
     const history = useHistory();
@@ -31,7 +31,7 @@ const Login = () => {
                     </Col>
                     <Col className="form-col">
                         <h3 className="form-col-title">Iniciar Sesión</h3>
-                        <FormLogin validated={validated}/>
+                        <LoginForm validated={validated}/>
                     </Col>
                 </Row>
             </div>

@@ -49,7 +49,7 @@
     border-radius: 7px;
 }
 .submit-button{
-    width: 149px;
+    width:auto;
     height: 32px;
     background-color: rgba(118, 159, 94, 0.6) !important;
     border-radius: 4px;

@@ -2,7 +2,7 @@ import {Button, Form} from "react-bootstrap";
 import "../../pages/Login.css"
 import {Link} from "react-router-dom";
 
-const FormLogin = ({validated}) => {
+const LoginForm = ({validated}) => {
     return(
         <Form noValidate validated={validated}>
             <Form.Group className="mb-3 form-col-form-group" size="lg" controlId="formEmail">
@@ -13,7 +13,7 @@ const FormLogin = ({validated}) => {
             <Form.Group className="mb-3 form-col-form-group"  size="lg" controlId="formPassword">
                 <Form.Label className='form-col-label'>Contraseña:</Form.Label>
                 <Form.Control className="form-col-input" type="password"/>
-                <Link className={"link-text"} to="/reset">¿Olvidó su contraseña?</Link>
+                <Link className={"link-text"} to="/reset-password">¿Olvidó su contraseña?</Link>
             </Form.Group>
             <div style={{textAlign: "center", margin: "10%"}}>
                 <Button className='submit-button' variant="success">Ingresar</Button>
@@ -22,4 +22,4 @@ const FormLogin = ({validated}) => {
     );
 }
 
-export default FormLogin;
+export default LoginForm;

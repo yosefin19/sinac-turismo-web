@@ -26,9 +26,9 @@ const Router = () => {
         <HashRouter>
 
             <Switch base="sinac-turismo">
-                <Route exact path="/" component={Menu}/>
+                <PrivateRoute exact path="/" component={Menu}/>
                 <AuthRoute exact path="/login" component={Login}/>
-                <AuthRoute exact path="/reset" component={ResetPassword}/>
+                <AuthRoute exact path="/reset-password" component={ResetPassword}/>
                 <PrivateRoute exact path="/menu" component={Menu}/>
                 <PrivateRoute exact path='/users' component={Users}/>
                 <PrivateRoute exact path='/add-user' component={AddUser}/>
