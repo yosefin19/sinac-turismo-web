@@ -46,7 +46,7 @@ export function UpdateButton({column, row}) {
     )
 }
 
-function CustonTable({name, columns, data, dir}) {
+function CustomTable({name, columns, data, dir}) {
 
     dirUpdateButton = '/update-' + dir + '/';
     const add = '/add-' + dir;
@@ -170,4 +170,4 @@ function CustonTable({name, columns, data, dir}) {
     )
 }
 
-export default CustonTable;
+export default CustomTable;

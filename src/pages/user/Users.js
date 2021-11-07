@@ -1,5 +1,5 @@
 import '../../assets/cuadro.css';
-import CustonTable, {UpdateButton} from '../../components/table/CustonTable';
+import CustomTable, {UpdateButton} from '../../components/table/CustomTable';
 
 import NavBar from "../../components/NavBar";
 import React, {Component} from 'react'
@@ -58,7 +58,7 @@ export default class Users extends Component {
             <div>
                 <NavBar/>
                 <div className='panel'>
-                    <CustonTable name="Administrar Usuarios" columns={columns} data={this.state.users} dir='user'/>
+                    <CustomTable name="Administrar Usuarios" columns={columns} data={this.state.users} dir='user'/>
                 </div>
             </div>
         )

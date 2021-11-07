@@ -1,40 +1,107 @@
 import {createContext, useEffect, useState} from "react";
+import {API_URL} from "../config";
 
 
 export const AuthenticationContext = createContext(undefined);
 
 const AuthenticationProvider = ({children}) => {
-    const [user, setUser] = useState(
-        JSON.parse(localStorage.getItem("user")) || null
+    const [credentials, setCredentials] = useState(
+        JSON.parse(localStorage.getItem("credentials")) || null
     );
+    const[valid, setValid] = useState(false);
 
+    /**
+     * Almacena en el localstorage las credenciales, para usarlas en siguiente
+     * sesiones por parte de un usuario.
+     */
     useEffect(() => {
         try{
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("credentials", JSON.stringify(credentials));
         } catch (error) {
-            localStorage.removeItem("user");
+            localStorage.removeItem("credentials");
             console.log(error)
         }
-    }, [user])
+    }, [credentials]);
 
 
-    // hay que traer el correo y contrasena y usar getuser con token y ver si es admin, sino f
-    //habria que hacer un useEffect para que si el token funca si hacer lo del usuario.
+    /**
+     * Verifíca si un usuario es realmente administrador, para lo que
+     * hace uso de las credenciales.
+     * @returns {boolean} true si es administrador, falso otro caso.
+     */
+    function isValidUser() {
+        if(!credentials) {
+            return false;
+        }
+        let endPoint = `${API_URL}user`
+        let options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + credentials.token,
+            },
+        }
+        fetch(endPoint, options).then((response) => response.json()).then((res) => {
+            if(!res.err) {
+                if (res.admin){
+                    setValid(true);
+                }
+                else{
+                    setCredentials(null);
+                    setValid(false);
+                }
+            }
+        });
+    }
+
+    /**
+     * Función para verificar el inicio de sesión de un usuario, verifica si el
+     * correo y contraseña son de un ususario registrado en la plataforma.
+     * @param email correo electrónico del usuario
+     * @param password contraseña del usuario
+     */
     const login = (email, password) => {
-        setUser({id: 1, name:"bj"});
+        let endPoint = `${API_URL}login`
+        let options = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        }
+        fetch(endPoint, options).then((response) => response.json()).then((res) => {
+            if (!!res.token) {
+                setCredentials(res);
+            } else {
+                setCredentials(null);
+            }
+        });
     }
 
+    /**
+     * Elimina las credenciales de la maquina, por lo que es necesario volver
+     * a iniciar sesión.
+     */
     const logout = () => {
-        setUser(null);
+        setCredentials(null);
+        setValid(false);
     }
 
+    /**
+     * Verífica que el ususario este logueado, para esto se valida que
+     * existan credenciales y sean de un usuario administrador.
+     * @returns {boolean}
+     */
     const logged = () => {
-        return !!user
+        isValidUser()
+        return !!credentials && valid;
     };
 
     const contextValue = {
-        user,
+        credentials,
         login,
+        isValidUser,
         logout,
         logged,
     }
