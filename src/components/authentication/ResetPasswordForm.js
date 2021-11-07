@@ -2,7 +2,6 @@ import {Button, Form, Modal, Spinner} from "react-bootstrap";
 import {useState} from "react";
 import {helpApi} from "../../helper/helpApi";
 import {API_URL} from "../../config";
-import Message from "../Message";
 import {useHistory} from "react-router-dom";
 
 const ResetPasswordForm = () => {
@@ -20,6 +19,10 @@ const ResetPasswordForm = () => {
 
     let api = helpApi();
 
+    /**
+     * Valida que el correo electronico sea valido mediante una expresión regular.
+     * @returns {boolean} true si es valido, false en otro caso
+     */
     const emailValidation = () => {
         let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w\w+)+$/;
         return reg.test(email) && email.length > 4;
@@ -29,6 +32,11 @@ const ResetPasswordForm = () => {
         return phoneNumber !== "" && phoneNumber === profile.phone
     }
 
+    /**
+     * Función que consulta a la API, si existe un usuario con un correo electronico en especifico.
+     * en caso que existe, establece los datos del usuario para validar, o sino muestra un mensaje
+     * de error.
+     */
     function findUser() {
         setLoading(true)
         let endPoint = `${API_URL}find-user`;
@@ -47,7 +55,6 @@ const ResetPasswordForm = () => {
                 setError(false)
                 setExistUser(true)
             } else {
-                window.alert("No se ha encontrado un usuario registrado con el correo indicado")
                 setError(res.err)
                 setExistUser(false)
             }
@@ -56,6 +63,10 @@ const ResetPasswordForm = () => {
         });
     }
 
+    /**
+     * Función para solicitar a la API en la generación de una nueva contraseña y se envíe un correo
+     * electrónico al usuario, o bien muestre un mensaje de error.
+     */
     function changePassword() {
         setLoading(true);
         let endPoint = `${API_URL}reset-password`;
@@ -75,7 +86,6 @@ const ResetPasswordForm = () => {
                 setError(false);
                 setExistUser(true);
             } else {
-                window.alert("No se ha podido realizar el tramite");
                 setError(res.err);
                 setExistUser(false);
                 setIsChange(false);
@@ -85,6 +95,9 @@ const ResetPasswordForm = () => {
         });
     }
 
+    /**
+     * Valida que el correo sea valido para poder buscar al usuario.
+     */
     function handleFindUser() {
         if (emailValidation()) {
             setValidated(true);
@@ -94,6 +107,10 @@ const ResetPasswordForm = () => {
         }
     }
 
+    /**
+     * Valida que el correo y teléfono coincidan y sean validos,
+     * para proceder con el cambio de contraseña.
+     */
     function handleChangePassword() {
         if (emailValidation() && phoneValidation()) {
             setValidated(true);
@@ -103,6 +120,10 @@ const ResetPasswordForm = () => {
         }
     }
 
+    /**
+     * Redirecciona a la página de inciar sesión en caso que se haya completado
+     * con exito el cambio de contraseña
+     */
     function handleOk() {
         history.push("/login");
         setIsChange(false);
@@ -110,9 +131,6 @@ const ResetPasswordForm = () => {
 
     return (
         <Form noValidate validated={validated}>
-            {error &&
-            <Message msg={`Error ${error.status}: ${error.statusText}`} bgColor="#dc3545"/>
-            }
             <Form.Group className="mb-3 form-col-form-group" size="lg" controlId="validationEmail">
                 <Form.Label className='form-col-label'>Correo Electronico:</Form.Label>
                 <Form.Control
@@ -121,7 +139,13 @@ const ResetPasswordForm = () => {
                     name="email"
                     value={email}
                     required
-                    onChange={(e) => setEmail(e.target.value.trim())}
+                    onChange={(e) =>{
+                        setEmail(e.target.value.trim());
+                        setExistUser(false);
+                        setProfile(null);
+                        setPhoneNumber("")
+                        console.log(e.target.value.trim())
+                    }}
                     isValid={emailValidation()}
                 />
                 {
@@ -187,6 +211,26 @@ const ResetPasswordForm = () => {
                 )
                 }
             </div>
+            <Modal show={error} onHide={()=>{setError(false)}}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        {existUser ?
+                            "No se pudo realizar el cambio de contraseña"
+                            :
+                            "No se a encontrado un usuario"
+                        }
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {existUser ?
+                        "No ha sido posible restablecer la contraseña, ha ocurrido un error mientras se generaba."
+                        :
+                        "El correo indicado  no corresponde con ningun usuario: " + email}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant='danger' onClick={()=>{setError(false)}}>Reintentar</Button>
+                </Modal.Footer>
+            </Modal>
             <Modal show={isChange} onHide={handleOk}>
                 <Modal.Header closeButton>
                     <Modal.Title>Exito</Modal.Title>
