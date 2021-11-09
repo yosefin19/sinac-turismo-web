@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
 import "../../assets/Form.css";
+import {API_URL} from "../../config";
 
-const urlApi = 'http://40.76.245.64:8000/'
 
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -40,10 +40,10 @@ function Form(props) {
     );
 
     const updateImage = (type) => {
-        const url = 'http://40.76.245.64:8000/profiles/photo/' + type + '/' + idUser
+        const url = API_URL + 'profiles/photo/' + type + '/' + idUser
 
         const formPhotos = new FormData();
-        if (type == 'cover') {
+        if (type === 'cover') {
             formPhotos.append(`photo`, cover)
         } else {
             formPhotos.append(`photo`, profile)
@@ -65,7 +65,7 @@ function Form(props) {
         // const profile_path = updateImage(profile, 'profile');
         //const cover_path = updateImage(cover, 'cover');
 
-        const url = 'http://40.76.245.64:8000/update-profile/' + idUser;
+        const url = API_URL + 'update-profile/' + idUser;
 
         const requestOptions = {
             method: 'POST',
@@ -90,7 +90,7 @@ function Form(props) {
     }
 
     const Eliminar = () => {
-        const url = 'http://40.76.245.64:8000/delete-profile/' + idUser;
+        const url = API_URL + 'delete-profile/' + idUser;
 
         fetch(url, {method: 'DELETE'}).then(response => response.json())
 

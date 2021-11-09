@@ -21,7 +21,7 @@ function UpdateUser() {
                     setItems(result);
                 },
             )
-    }, [])
+    }, [apiUrl])
 
 
     return (
