@@ -1,14 +1,15 @@
 import Router from "./navigation/Router";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthenticationProvider from "./authentication/AuthenticationProvider";
 
 
 function App() {
     return (
-        <div className="section">
-            <style>{'body { background-color: #E5E5E5; }'}</style>
-
-            <Router/>
-
+        <div>
+            <style>{'body { background-color: #F0F0F0; width: 100%; height: 100%}'}</style>
+            <AuthenticationProvider>
+                <Router/>
+            </AuthenticationProvider>
         </div>
     );
 }

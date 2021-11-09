@@ -1,7 +1,8 @@
 import {AvatarCell, UpdateButton} from '../../components/table/Table';
 import React, {Component} from 'react'
 import NavBar from "../../components/NavBar";
-import CustonTable from "../../components/table/CustonTable";
+import CustomTable from "../../components/table/CustomTable";
+import {API_URL} from "../../config";
 
 
 export default class Profiles extends Component {
@@ -14,7 +15,7 @@ export default class Profiles extends Component {
     }
 
     async getData() {
-        fetch('http://40.76.245.64:8000/profiles')
+        fetch(API_URL+'profiles')
             .then(res => res.json())
             .then((data) => {
                 this.setState({users: data})
@@ -66,7 +67,7 @@ export default class Profiles extends Component {
             <div>
                 <NavBar/>
                 <div className='panel'>
-                    <CustonTable name="Administrar Perfiles" columns={columns} data={this.state.users} dir='profile'/>
+                    <CustomTable name="Administrar Perfiles" columns={columns} data={this.state.users} dir='profile'/>
                 </div>
             </div>
         )

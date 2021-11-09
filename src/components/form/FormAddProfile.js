@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
 import "../../assets/Form.css";
+import {API_URL} from "../../config";
 
 
 function validateEmail(email) {
@@ -20,7 +21,7 @@ function Form() {
     const [cover, setCover] = useState(null);
 
     const dirUpdateButton = '/profiles'
-    const urlApi = 'http://40.76.245.64:8000/add-profile'
+    const urlApi = API_URL + 'add-profile'
     const history = useHistory();
 
     useEffect(
@@ -58,7 +59,7 @@ function Form() {
     }
     const addImage = (id, type) => {
 
-        const url = 'http://40.76.245.64:8000/profiles/photo/' + type + '/' + id
+        const url = API_URL + 'profiles/photo/' + type + '/' + id
 
         const formPhotos = new FormData();
         if (type === 'cover') {

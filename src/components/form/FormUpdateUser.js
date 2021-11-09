@@ -26,7 +26,7 @@ function usePasswordValidator(config = {min: 6, max: 15}) {
                 );
             }
         },
-        [password]
+        [password, config.min, config.max]
     );
     return [password, setPassword, passwordError];
 }

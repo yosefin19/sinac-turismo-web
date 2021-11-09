@@ -6,14 +6,36 @@ import {GiMountainRoad} from 'react-icons/gi'
 import "./Menu.css"
 import NavBar from "../components/NavBar";
 import {Link} from "react-router-dom";
+import {helpApi} from "../helper/helpApi";
+import {API_URL} from "../config";
+import {useEffect, useState} from "react";
 
 const Menu = () => {
+    const api = helpApi();
+    const credentials = JSON.parse(localStorage.getItem("credentials"));
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        let endPoint = `${API_URL}profile`;
+        let options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + credentials.token,
+            },
+        }
+        api.get(endPoint, options).then(response => {
+            if(!response.err) setProfile(response);
+        });
+    }, []);
+
+
     return (
         <div>
             <NavBar/>
             <div className="section">
                 <div className='panel'>
-                    <h3 className="title">Hola, [usuario]</h3>
+                    <h3 className="title">Hola, {profile && profile.name}</h3>
                     <div className="menu-options">
                         <Row className="row">
                             <Col className="col">
