@@ -2,7 +2,7 @@ import {Col, Row} from "react-bootstrap";
 import ResetPasswordForm from "../components/authentication/ResetPasswordForm";
 
 const ResetPassword = () => {
-    return(
+    return (
         <div className="login-section">
             <div className="login-panel">
                 <Row className="row">

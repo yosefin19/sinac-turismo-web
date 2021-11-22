@@ -8,14 +8,16 @@ const AuthenticationProvider = ({children}) => {
     const [credentials, setCredentials] = useState(
         JSON.parse(localStorage.getItem("credentials")) || null
     );
-    const[valid, setValid] = useState(false);
+    const [valid, setValid] = useState(
+        JSON.parse(localStorage.getItem("valid")) || false
+    );
 
     /**
      * Almacena en el localstorage las credenciales, para usarlas en siguiente
      * sesiones por parte de un usuario.
      */
     useEffect(() => {
-        try{
+        try {
             localStorage.setItem("credentials", JSON.stringify(credentials));
         } catch (error) {
             localStorage.removeItem("credentials");
@@ -23,14 +25,26 @@ const AuthenticationProvider = ({children}) => {
         }
     }, [credentials]);
 
+    /**
+     * Almacena en el localstorage las credenciales, para usarlas en siguiente
+     * sesiones por parte de un usuario.
+     */
+    useEffect(() => {
+        try {
+            localStorage.setItem("valid", JSON.stringify(valid));
+        } catch (error) {
+            localStorage.removeItem("valid");
+            console.log(error)
+        }
+    }, [valid]);
 
     /**
      * Verifíca si un usuario es realmente administrador, para lo que
      * hace uso de las credenciales.
      * @returns {boolean} true si es administrador, falso otro caso.
      */
-    function isValidUser() {
-        if(!credentials) {
+    const isValidUser = () => {
+        if (!credentials) {
             return false;
         }
         let endPoint = `${API_URL}user`
@@ -42,11 +56,10 @@ const AuthenticationProvider = ({children}) => {
             },
         }
         fetch(endPoint, options).then((response) => response.json()).then((res) => {
-            if(!res.err) {
-                if (res.admin){
+            if (!res.err) {
+                if (res.admin) {
                     setValid(true);
-                }
-                else{
+                } else {
                     setCredentials(null);
                     setValid(false);
                 }
@@ -70,9 +83,9 @@ const AuthenticationProvider = ({children}) => {
                 password: password,
             }),
         }
-        fetch(endPoint, options).then((response) => response.json()).then((res) => {
+        fetch(endPoint, options).then((response) => response.json()).then(async (res) => {
             if (!!res.token) {
-                setCredentials(res);
+                await setCredentials(res);
             } else {
                 setCredentials(null);
             }
@@ -94,8 +107,7 @@ const AuthenticationProvider = ({children}) => {
      * @returns {boolean}
      */
     const logged = () => {
-        isValidUser()
-        return !!credentials && valid;
+        return !!credentials && valid ? valid : isValidUser();
     };
 
     const contextValue = {
@@ -113,4 +125,4 @@ const AuthenticationProvider = ({children}) => {
     )
 }
 
-export  default AuthenticationProvider;
+export default AuthenticationProvider;

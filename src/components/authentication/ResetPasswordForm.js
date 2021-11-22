@@ -49,7 +49,6 @@ const ResetPasswordForm = () => {
             },
         }
         api.post(endPoint, options).then((res) => {
-            console.log(res)
             if (!res.err) {
                 setProfile(res)
                 setError(false)
@@ -70,7 +69,6 @@ const ResetPasswordForm = () => {
     function changePassword() {
         setLoading(true);
         let endPoint = `${API_URL}reset-password`;
-        console.log(endPoint)
         let options = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -80,7 +78,6 @@ const ResetPasswordForm = () => {
             },
         }
         api.post(endPoint, options).then((res) => {
-            console.log(res);
             if (!res.err) {
                 setIsChange(true);
                 setError(false);
@@ -139,12 +136,11 @@ const ResetPasswordForm = () => {
                     name="email"
                     value={email}
                     required
-                    onChange={(e) =>{
+                    onChange={(e) => {
                         setEmail(e.target.value.trim());
                         setExistUser(false);
                         setProfile(null);
                         setPhoneNumber("")
-                        console.log(e.target.value.trim())
                     }}
                     isValid={emailValidation()}
                 />
@@ -193,7 +189,8 @@ const ResetPasswordForm = () => {
                     >
                         Cambiar Contraseña
                         {
-                            loading && <Spinner as="span" variant="dark" size="sm" role="status" aria-hidden="true" animation="border"/>
+                            loading && <Spinner as="span" variant="dark" size="sm" role="status" aria-hidden="true"
+                                                animation="border"/>
                         }
                     </Button>
                 ) : (
@@ -205,13 +202,16 @@ const ResetPasswordForm = () => {
                     >
                         Buscar Usuario
                         {
-                            loading && <Spinner as="span" variant="dark" size="sm" role="status" aria-hidden="true" animation="border"/>
+                            loading && <Spinner as="span" variant="dark" size="sm" role="status" aria-hidden="true"
+                                                animation="border"/>
                         }
                     </Button>
                 )
                 }
             </div>
-            <Modal show={error} onHide={()=>{setError(false)}}>
+            <Modal show={error} onHide={() => {
+                setError(false)
+            }}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         {existUser ?
@@ -228,7 +228,9 @@ const ResetPasswordForm = () => {
                         "El correo indicado  no corresponde con ningun usuario: " + email}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='danger' onClick={()=>{setError(false)}}>Reintentar</Button>
+                    <Button variant='danger' onClick={() => {
+                        setError(false)
+                    }}>Reintentar</Button>
                 </Modal.Footer>
             </Modal>
             <Modal show={isChange} onHide={handleOk}>

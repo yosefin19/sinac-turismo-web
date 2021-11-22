@@ -31,11 +31,11 @@ const Router = () => {
                 <AuthRoute exact path="/reset-password" component={ResetPassword}/>
                 <PrivateRoute exact path="/menu" component={Menu}/>
                 <PrivateRoute exact path='/users' component={Users}/>
-                <PrivateRoute exact path='/add-user' component={AddUser}/>
-                <PrivateRoute exact path='/update-user/:id' component={UpdateUser}/>
+                <PrivateRoute exact path='/user/add' component={AddUser}/>
+                <PrivateRoute exact path='/user/:id' component={UpdateUser}/>
                 <PrivateRoute exact path='/profiles' component={Profiles}/>
-                <PrivateRoute exact path='/add-profile' component={AddProfile}/>
-                <PrivateRoute exact path='/update-profile/:id' component={UpdateProfile}/>
+                <PrivateRoute exact path='/profile/add' component={AddProfile}/>
+                <PrivateRoute exact path='/profile/:id' component={UpdateProfile}/>
                 <PrivateRoute exact path="/conservation-area" component={ConservationArea}/>
                 <PrivateRoute exact path="/conservation-area/add" component={AddConservationArea}/>
                 <PrivateRoute exact path="/conservation-area/:id" component={ManageConservationArea}/>

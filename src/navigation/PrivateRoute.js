@@ -10,8 +10,8 @@ export default function PrivateRoute({component: Component, ...rest}) {
         <Route {...rest}>
             {authentication.logged() ? (
                 <Component/>
-                ) : (
-                    <Redirect to={{pathname: "/login", state: {from: location}}}/>
+            ) : (
+                <Redirect to={{pathname: "/login", state: {from: location}}}/>
             )}
         </Route>
     )

@@ -2,34 +2,41 @@
     background-color: #F0F0F0;
     alignment: center;
 }
+
 .login-panel {
     margin-top: 10%;
     margin-left: 15%;
     margin-right: 15%;
 }
-.logo-col{
+
+.logo-col {
     max-width: 100%;
     max-height: 100%;
 }
-.logo-col-icon{
+
+.logo-col-icon {
     height: 60%;
     width: 60%;
 }
-.form-col{
+
+.form-col {
     background-color: #ffffff;
     flex-direction: column;
     justify-items: center;
 }
-.form-col-title{
+
+.form-col-title {
     text-align: center;
     color: #8F8F8F;
     margin-top: 8%;
     margin-bottom: 5%;
 }
-.form-col-form-group{
+
+.form-col-form-group {
     margin: 5% 10% 5% 10%;
 }
-.form-col-label{
+
+.form-col-label {
     left: 31px;
     top: 146px;
     font-style: normal;
@@ -38,7 +45,8 @@
     line-height: 27px;
     color: #8F8F8F;
 }
-.form-col-input{
+
+.form-col-input {
     width: 433px;
     height: 35px;
     left: 753px;
@@ -48,8 +56,9 @@
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
     border-radius: 7px;
 }
-.submit-button{
-    width:auto;
+
+.submit-button {
+    width: auto;
     height: 32px;
     background-color: rgba(118, 159, 94, 0.6) !important;
     border-radius: 4px;
@@ -64,7 +73,8 @@
     letter-spacing: 0.02em;
     color: #4A4A4A !important;
 }
-.link-text{
+
+.link-text {
     font-family: Segoe UI, Arial, serif;
     font-style: normal;
     font-weight: 600;

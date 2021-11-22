@@ -1,4 +1,4 @@
-import {Redirect, Route, } from "react-router-dom";
+import {Redirect, Route,} from "react-router-dom";
 import useAuthentication from "../authentication/useAuthentication";
 
 export default function AuthRoute({component: Component, ...rest}) {

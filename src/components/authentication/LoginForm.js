@@ -66,7 +66,7 @@ const LoginForm = ({history, location, authentication}) => {
         setHidePassword(!hidePassword)
     }
 
-    return(
+    return (
         <Form noValidate validated={validated}>
             <Form.Group className="mb-3 form-col-form-group" size="lg" controlId="validationEmail">
                 <Form.Label className='form-col-label'>Correo Electronico:</Form.Label>
@@ -85,7 +85,7 @@ const LoginForm = ({history, location, authentication}) => {
                     El correo electrónico es invalido.
                 </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3 form-col-form-group"  size="lg" controlId="formPassword">
+            <Form.Group className="mb-3 form-col-form-group" size="lg" controlId="formPassword">
                 <Form.Label className='form-col-label'>Contraseña:</Form.Label>
                 <Form.Control
                     className="form-col-input"
@@ -103,7 +103,7 @@ const LoginForm = ({history, location, authentication}) => {
                     Debe contener: mayusculas, minusculas y números
                 </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3 form-col-form-group"  size="lg" id="formGridCheckbox">
+            <Form.Group className="mb-3 form-col-form-group" size="lg" id="formGridCheckbox">
                 <Form.Check
                     type="checkbox"
                     label="Mostrar contraseña"
@@ -111,18 +111,21 @@ const LoginForm = ({history, location, authentication}) => {
                     onChange={handleHidePassword}
                 />
             </Form.Group>
-            <Form.Group className="mb-3 form-col-form-group"  size="lg" id="formGridCheckbox">
+            <Form.Group className="mb-3 form-col-form-group" size="lg" id="formGridCheckbox">
                 <Link className={"link-text text-center"} to="/reset-password">¿Olvidó su contraseña?</Link>
             </Form.Group>
             <div style={{textAlign: "center", margin: "10%"}}>
                 <Button className='submit-button' variant="success" onClick={handleValidated}>
                     Ingresar
                     {
-                        loading && <Spinner as="span" variant="dark" size="sm" role="status" aria-hidden="true" animation="border"/>
+                        loading && <Spinner as="span" variant="dark" size="sm" role="status" aria-hidden="true"
+                                            animation="border"/>
                     }
                 </Button>
             </div>
-            <Modal show={unauthorized} onHide={() => {setUnauthorized(false)}}>
+            <Modal show={unauthorized} onHide={() => {
+                setUnauthorized(false)
+            }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Error</Modal.Title>
                 </Modal.Header>
@@ -130,7 +133,9 @@ const LoginForm = ({history, location, authentication}) => {
                     El correo y constraseña ingresados son incorrectos o no tiene los permisos necesarios para acceder.
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='primary' onClick={() => {setUnauthorized(false)}}>Cerrar </Button>
+                    <Button variant='primary' onClick={() => {
+                        setUnauthorized(false)
+                    }}>Cerrar </Button>
                 </Modal.Footer>
             </Modal>
         </Form>

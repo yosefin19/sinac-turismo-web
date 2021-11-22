@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {IconContext} from 'react-icons'
 import './NavBar.css'
 import {SideBarData} from "./SideBar";
-import {Container, Image, Navbar, Row} from "react-bootstrap";
+import {Container, Image, Navbar, Row, Spinner} from "react-bootstrap";
 import logo from '../assets/sinac.png';
 import useAuthentication from "../authentication/useAuthentication";
 import {API_URL, IMAGE_BASE_URL} from "../config";
@@ -15,14 +15,16 @@ import {helpApi} from "../helper/helpApi";
 const NavBar = () => {
     const [sideBar, setSideBar] = useState(true);
     const authentication = useAuthentication();
-    const api = helpApi();
-    const credentials = JSON.parse(localStorage.getItem("credentials"));
     const [profile, setProfile] = useState(null);
     const [photo, setPhoto] = useState("");
+
+
     /**
      * Obtiene los datos del usuario para mostrarlos en la barra de navegación superior.
      */
     useEffect(() => {
+        const api = helpApi();
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         let endPoint = `${API_URL}profile`;
         let options = {
             method: "GET",
@@ -32,11 +34,11 @@ const NavBar = () => {
             },
         }
         api.get(endPoint, options).then(response => {
-            if(!response.err) {
+            if (!response.err) {
                 setProfile(response);
-                if (response.profile_photo_path){
+                if (response.profile_photo_path) {
                     setPhoto(`${IMAGE_BASE_URL}${response.profile_photo_path}`);
-                }else setPhoto("img.png");
+                } else setPhoto("img.png");
             }
         });
     }, []);
@@ -58,24 +60,34 @@ const NavBar = () => {
             <IconContext.Provider value={{color: '#383838'}}>
                 <Navbar>
                     <Container>
-                    <Link to='#' className='menu-bars'>
-                        <FaBars className='faBars' onClick={handleShowSideBar}/>
-                    </Link>
-                    <Navbar.Toggle />
-                    <Navbar.Collapse className="justify-content-end">
-                        <Navbar.Text>
-                            <div className="profile-image-box">
-                                <Image
-                                    className="profile-image"
-                                    src={photo}/>
-                            </div>
-                        </Navbar.Text>
-                        <Row className={"info-user"}>
-                            <b className="user-name">{profile && profile.name}</b>
-                            <text className="user-description">Administrador</text>
-                        </Row>
-                        <ImExit className='faBars' color="#808080" onClick={handleLogOut}/>
-                    </Navbar.Collapse>
+                        <Link to='#' className='menu-bars'>
+                            <FaBars className='faBars' onClick={handleShowSideBar}/>
+                        </Link>
+                        <Navbar.Toggle/>
+                        <Navbar.Collapse className="justify-content-end">
+                            <Navbar.Text>
+                                <div className="profile-image-box">
+                                    <Image
+                                        className="profile-image"
+                                        src={
+                                            profile && profile.profile_photo_path !== "/" ? photo : "avatar.jpg"
+                                        }
+                                    />
+                                </div>
+                            </Navbar.Text>
+                            <Row className={"info-user"}>
+                                <b className="user-name">{
+                                    profile ? (
+                                        profile.name
+                                    ) : (
+                                        <Spinner as="span" variant="dark" size="sm" role="status" aria-hidden="true"
+                                                 animation="border"/>
+                                    )
+                                }</b>
+                                <b className="user-description">Administrador</b>
+                            </Row>
+                            <ImExit className='faBars' color="#808080" onClick={handleLogOut}/>
+                        </Navbar.Collapse>
                     </Container>
                 </Navbar>
                 <nav className={sideBar ? 'nav-menu active' : 'nav-menu'}>
