@@ -1,38 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useParams} from 'react-router-dom';
-import Form from '../../components/form/FormUpdateProfile'
-import {API_URL} from "../../config";
+import NavBar from "../../components/NavBar";
+import {Col, Row} from "react-bootstrap";
+import UpdateProfileForm from "../../components/profiles/UpdateProfileForm";
 
 
 function UpdateProfile() {
     let {id} = useParams()
 
-    const apiUrl = `${API_URL}profiles/` + id;
-
-    const [user, setItems] = useState([]);
-
-    useEffect(() => {
-        fetch(apiUrl)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setItems(result);
-                },
-            )
-    }, [apiUrl])
-
     return (
-        <section className='card'>
-            <div className='header-cuadro'>
-                <h1 className='header-text-cuadro'>Administrar Perfiles</h1>
-                <hr/>
+        <div>
+            <NavBar/>
+            <div className="section">
+                <div className='panel'>
+                    <div className="menu-options">
+                        <Row>
+                            <Col className='row'><h3 className="title">Administrar Perfiles</h3></Col>
+                        </Row>
+                        <hr/>
+                        <Row>
+                            <UpdateProfileForm id={id}/>
+                        </Row>
+                        <hr/>
+                    </div>
+                </div>
             </div>
-            <div className='body-cuadro'>
-                <Form data={user} id={id}/>
-
-            </div>
-
-        </section>
+        </div>
     );
 }
 
