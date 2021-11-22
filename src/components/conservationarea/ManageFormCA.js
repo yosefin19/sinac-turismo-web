@@ -52,11 +52,15 @@ const ManageFormCA = () => {
 
     const updateData = (data) => {
         let endpoint = `${url}${id}`
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         //console.log(data);
         //console.log(endpoint);
         let options = {
             body: data,
-            headers: {"content-type": "application/json"},
+            headers: {
+                "content-type": "application/json",
+                Authorization: "Bearer " + credentials.token
+            },
         };
         api.post(endpoint, options).then((res) => {
             if (!res.err) {
@@ -73,6 +77,7 @@ const ManageFormCA = () => {
 
     const updateImages = (id) => {
         let endpoint = `${url}${id}/photos`
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
             formPhotos.append(`photos`, photos[i])
@@ -82,7 +87,10 @@ const ManageFormCA = () => {
             method: 'POST',
             body: formPhotos,
             mimeType: "multipart/form-data",
-            redirect: 'follow'
+            redirect: 'follow',
+            headers: {
+                Authorization: "Bearer " + credentials.token
+            },
         };
         fetch(endpoint, requestOptions)
             .then(response => response.text())
@@ -121,7 +129,13 @@ const ManageFormCA = () => {
 
     const handleDelete = () => {
         let endpoint = `${API_URL}${AREAS_URL}${id}`
-        api.del(endpoint).then((res) => {
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
+        let options = {
+            headers: {
+                Authorization: "Bearer " + credentials.token
+            },
+        };
+        api.del(endpoint, options).then((res) => {
             if (!res.err) {
                 setForm(initialForm)
                 setError(false)
