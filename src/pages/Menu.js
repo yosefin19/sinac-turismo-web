@@ -11,11 +11,11 @@ import {API_URL} from "../config";
 import {useEffect, useState} from "react";
 
 const Menu = () => {
-    const api = helpApi();
-    const credentials = JSON.parse(localStorage.getItem("credentials"));
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
+        const api = helpApi();
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         let endPoint = `${API_URL}profile`;
         let options = {
             method: "GET",
@@ -25,7 +25,7 @@ const Menu = () => {
             },
         }
         api.get(endPoint, options).then(response => {
-            if(!response.err) setProfile(response);
+            if (!response.err) setProfile(response);
         });
     }, []);
 
