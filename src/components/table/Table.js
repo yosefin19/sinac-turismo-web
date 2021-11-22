@@ -1,181 +1,86 @@
 import React from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import {useAsyncDebounce, useFilters, useGlobalFilter, usePagination, useTable} from 'react-table'
-import {MdOpenInNew} from "react-icons/md";
-import {Button, PageButton} from '../button/Button'
-import '../../assets/Table.css'
+import {Link} from 'react-router-dom';
+import {Button, Col, Row, Spinner} from "react-bootstrap";
+import MySearch from "../components/table/MySearch";
+import {MdAddCircle} from "react-icons/md";
+import Message from "../Message";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider from "react-bootstrap-table2-toolkit";
 
-var dirUpdateButton = '/';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
 
-// Filtro para busqueda para cualquier columna de la tabla
-function GlobalFilter({globalFilter, setGlobalFilter,}) {
-    const [value, setValue] = React.useState(globalFilter)
-    const onChange = useAsyncDebounce(value => {
-        setGlobalFilter(value || undefined)
-    }, 200)
-
+const Table = ({error, loading, data, columns, title, componentName}) => {
     return (
-        <input
-            type="text"
-            className='search'
-            value={value}
-            onChange={e => {
-                setValue(e.target.value);
-                onChange(e.target.value);
-            }}
-            placeholder={`Buscar`}
-        />
-    )
-}
-
-//Acomoda la foto
-export function AvatarCell({column, row}) {
-    return (
-        <img className="avatar" src={row.original[column.img]} alt=""/>
-
-    )
-}
-
-//Agrega el boton para actualizar
-export function UpdateButton({column, row}) {
-    const id = row.original.id;
-    return (
-        <Link to={dirUpdateButton + id}>
-            <MdOpenInNew style={{color: "#769f5e", fontSize: 22}}/>
-        </Link>
-    )
-}
-
-function Table({name, columns, data, dir}) {
-
-    dirUpdateButton = '/update-' + dir + '/';
-    const add = '/add-' + dir;
-
-    let history = useHistory();
-    //Clickear boton agregar elementos
-    const handleClick = () => {
-        history.push({
-            pathname: add
-        })
-    }
-
-
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        page,
-        canPreviousPage,
-        canNextPage,
-        nextPage,
-        previousPage,
-        state,
-        preGlobalFilteredRows,
-        setGlobalFilter,
-    } = useTable({
-            columns, data,
-        },
-        useFilters, useGlobalFilter, usePagination,
-    )
-
-
-    return (
-        <>
-            <section>
-                <h1>{name} </h1>
-
-                <Button
-                    onClick={handleClick} type="button">
-                    Agregar
-                </Button>
-
-
-                <GlobalFilter
-                    preGlobalFilteredRows={preGlobalFilteredRows}
-                    globalFilter={state.globalFilter}
-                    setGlobalFilter={setGlobalFilter}
-                />
-
-            </section>
-
-            <hr className="line"/>
-            {/* table */}
-
-            <table {...getTableProps()} className="line">
-
-                {/*HEADER DE TBALA*/}
-
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()} className="header-table">
-                        {headerGroup.headers.map(column => (
-                            <th
-                                scope="col"
-
-                                {...column.getHeaderProps(column)}
-                            >
-                                {column.render('Header')}
-
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-
-
-                {/*VALORES TBALA*/}
-                <tbody {...getTableBodyProps()} className="column">
-
-
-                {page.map((row, i) => {
-                    prepareRow(row)
-                    return (
-                        <tr {...row.getRowProps()} >
-                            {row.cells.map(cell => {
-                                return (
-
-                                    <td {...cell.getCellProps()}>
-
-
-                                        <div className="text-table">{cell.render('Cell')}</div>
-
-                                    </td>
-
+        <ToolkitProvider
+            search
+        >
+            {
+                props => (
+                    <div className='panel'>
+                        <Row>
+                            <Col sm={6}><h3 className="title">{title}</h3></Col>
+                            <Col sm={3}>
+                                <MySearch
+                                    {...props.searchProps}
+                                    placeholder="Buscar"
+                                />
+                            </Col>
+                            <Col sm={3}>
+                                <Link to={'/' + componentName + '/add'}>
+                                    <Button className='confirm-button'
+                                            variant="success">
+                                        <MdAddCircle/> Agregar Nuevo</Button>
+                                </Link>
+                            </Col>
+                        </Row>
+                        <hr className="hr"/>
+                        <div className="menu-options">
+                            {error && (
+                                <Message
+                                    msg={`Error ${error.status}: ${error.statusText}`}
+                                    bgColor="#dc3545"
+                                />
+                            )}
+                            {/**loading ? <Spinner style={{marginLeft:'45%'}} as="span" variant="dark" size="100" role="status" aria-hidden="true" animation="border"/>
+                             :
+                             dataBase && (
+                             <TableCA
+                             data={dataBase}
+                             />
+                             )
+                             **/}
+                            {loading ? <Spinner style={{marginLeft: '45%'}} as="span" variant="dark" size="100"
+                                                role="status" aria-hidden="true" animation="border"/>
+                                :
+                                data && (
+                                    <BootstrapTable
+                                        {...props.baseProps}
+                                        keyField='id'
+                                        data={data}
+                                        columns={columns}
+                                        bootstrap4
+                                        rowStyle={{
+                                            display: 'flow list-item block',
+                                            textAlign: 'center',
+                                            whiteSpace: "nowrap",
+                                            textOverflow: 'clip',
+                                            overflow: "hidden"
+                                        }}
+                                        striped
+                                        hover
+                                        pagination={paginationFactory({sizePerPage: 6})}
+                                        wrapperClasses="table-responsive-lg"
+                                    />
                                 )
-
-                            })}
-
-                        </tr>
-
-                    )
-                })}
-
-                </tbody>
-
-            </table>
-
-            <hr className="line"/>
-            {/* Pagination */}
-
-            <nav className="pagination">
-                <PageButton
-                    onClick={() => previousPage()}
-                    disabled={!canPreviousPage}
-                >
-                    <span>Anterior</span>
-                </PageButton>
-
-                <PageButton
-                    onClick={() => nextPage()}
-                    disabled={!canNextPage
-                    }>
-                    <span className='button'>Siguiente</span>
-                </PageButton>
-
-            </nav>
-
-
-        </>
-    )
+                            }
+                        </div>
+                    </div>
+                )
+            }
+        </ToolkitProvider>
+    );
 }
 
 export default Table;

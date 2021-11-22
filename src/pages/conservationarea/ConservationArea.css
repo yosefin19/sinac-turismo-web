@@ -50,3 +50,18 @@
     letter-spacing: 0.02em;
     color: #4A4A4A !important;
 }
+
+.search-button {
+    background-color: #ffffff;
+    border-color: #F0F0F0;
+    display: table-row;
+    width: 95%;
+    margin: auto;
+    font-family: Segoe UI, Arial, serif;
+    font-style: normal;
+    font-size: 22px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    border-width: 2px;
+    border-radius: 4px;
+}

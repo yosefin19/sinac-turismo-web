@@ -32,12 +32,18 @@ const AddFormCA = () => {
 
 
     const createData = (data) => {
+        console.log(url)
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         if (validatedData) {
             let options = {
                 body: data,
-                headers: {"content-type": "application/json"},
+                headers: {
+                    "content-type": "application/json",
+                    Authorization: "Bearer " + credentials.token
+                },
             };
             api.post(url, options).then((res) => {
+                console.log(res)
                 if (!res.err) {
                     sendImages(res.id)
                     setForm(initialForm)
@@ -54,6 +60,7 @@ const AddFormCA = () => {
 
     const sendImages = (id) => {
         let endpoint = `${url}${id}/photos`
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
             formPhotos.append(`photos`, photos[i])
@@ -63,10 +70,15 @@ const AddFormCA = () => {
             method: 'POST',
             body: formPhotos,
             mimeType: "multipart/form-data",
-            redirect: 'follow'
+            redirect: 'follow',
+            headers :{
+                Authorization: "Bearer " + credentials.token
+            }
         };
         fetch(endpoint, requestOptions)
-            .then(response => response.text())
+            .then(response => {
+                console.log(response)
+                response.text()})
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
     }
