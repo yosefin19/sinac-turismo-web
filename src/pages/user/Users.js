@@ -1,5 +1,3 @@
-import '../../assets/cuadro.css';
-
 import NavBar from "../../components/NavBar";
 import React, {useEffect, useState} from 'react'
 import {API_URL} from "../../config";
@@ -27,7 +25,6 @@ const Users = () => {
         fetch(endPoint, options)
             .then(res => res.json())
             .then((data) => {
-                console.log(data)
                 setUsers(data);
                 setLoading(false);
             })

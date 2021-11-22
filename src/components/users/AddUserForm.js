@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
-import "../../assets/Form.css";
+
 
 import {API_URL} from "../../config";
 import {Button, Col, Form, FormLabel, Modal, Row} from "react-bootstrap";

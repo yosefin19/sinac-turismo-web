@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
-import "../../assets/Form.css";
+
 import {API_URL} from "../../config";
 import {Button, Col, Form, FormLabel, Modal, Row} from "react-bootstrap";
 import {helpApi} from "../../helper/helpApi";
@@ -43,7 +43,6 @@ function AddProfileForm() {
                  (response) => {
                     if (!response.err) {
                         const id = response.id
-                        console.log(id)
                         if (profile) addImage(id, "profile")
                         if (cover) addImage(id, "cover")
                         setError(false)

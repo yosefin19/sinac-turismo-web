@@ -32,7 +32,6 @@ const AddFormCA = () => {
 
 
     const createData = (data) => {
-        console.log(url)
         const credentials = JSON.parse(localStorage.getItem("credentials"));
         if (validatedData) {
             let options = {
@@ -43,7 +42,6 @@ const AddFormCA = () => {
                 },
             };
             api.post(url, options).then((res) => {
-                console.log(res)
                 if (!res.err) {
                     sendImages(res.id)
                     setForm(initialForm)
@@ -77,10 +75,9 @@ const AddFormCA = () => {
         };
         fetch(endpoint, requestOptions)
             .then(response => {
-                console.log(response)
                 response.text()})
             .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            .catch(error => setError(error));
     }
 
     const handlePhoto = (e) => {

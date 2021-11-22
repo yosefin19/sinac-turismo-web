@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../assets/cuadro.css';
 import {useParams} from 'react-router-dom';
 import NavBar from "../../components/NavBar";
 import {Col, Row} from "react-bootstrap";

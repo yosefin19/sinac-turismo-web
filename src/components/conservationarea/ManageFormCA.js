@@ -32,14 +32,10 @@ const ManageFormCA = () => {
 
     useEffect(() => {
             let endpoint = `${API_URL}${AREAS_URL}${id}`
-            console.log(endpoint)
             helpApi()
                 .get(endpoint)
                 .then((res) => {
-                    console.log(res);
                     if (!res.err) {
-                        //res.photos_path = res.photos_path.split(",").map(e => `${api_url}${e}`)
-                        //res.region_path = `${api_url}${res.region_path}`
                         setForm(res);
                         setError(false);
                     } else {
@@ -53,8 +49,6 @@ const ManageFormCA = () => {
     const updateData = (data) => {
         let endpoint = `${url}${id}`
         const credentials = JSON.parse(localStorage.getItem("credentials"));
-        //console.log(data);
-        //console.log(endpoint);
         let options = {
             body: data,
             headers: {
@@ -99,7 +93,6 @@ const ManageFormCA = () => {
     }
 
     const handlePhoto = (e) => {
-        //console.log(e.target.files)
         setPhotos(e.target.files)
     }
 
