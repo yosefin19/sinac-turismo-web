@@ -1,22 +1,77 @@
 import React, {useEffect, useState} from "react";
 import NavBar from "../../components/NavBar";
-import {Button, Col, Row} from "react-bootstrap";
-
-import {MdAddCircle} from "react-icons/md"
+import {Image} from "react-bootstrap";
 import "./TouristDestination.css"
 import {helpApi} from "../../helper/helpApi";
-import Loader from "../../components/Loader";
-import Message from "../../components/Message";
 import {Link} from "react-router-dom";
-import TableTD from "../../components/tourist-destination/TableTD";
 
-import {API_URL, DESTINATIONS_URL} from "../../config";
+import {API_URL, DESTINATIONS_URL, IMAGE_BASE_URL} from "../../config";
+import Table from "../../components/table/Table";
+import {IoOpenOutline} from "react-icons/all";
 
 const TouristDestination = () => {
+
+    const styles = {
+        maxHeight: '50px',
+        maxWidth: 'auto',
+        flex: "center",
+        borderRadius: "3px"
+    };
 
     const [dataBase, setDataBase] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const columns = [
+        {
+            dataField: "photos_path",
+            text: "Imagen",
+            formatter: (value, row) => {
+                let photos = value.split(",");
+                return (<Image style={styles} src={`${IMAGE_BASE_URL}${photos[0]}`}/>);
+            },
+            headerStyle: () => {
+                return {width: '10%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            dataField: "id",
+            text: "Identificador",
+            sort: true,
+            headerStyle: () => {
+                return {width: '15%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            dataField: "name",
+            text: 'Nombre',
+            sort: true,
+            style: {textOverflow: "ellipsis", overflow: "hidden", maxWidth: '150%'},
+            headerStyle: () => {
+                return {width: '30%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            dataField: "description",
+            text: "Descripción",
+            style: {textOverflow: "ellipsis", overflow: "hidden", maxWidth: '150%'},
+            headerStyle: () => {
+                return {width: '30%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            text: "Editar",
+            formatter: (value, row) => {
+                return (
+                    <Link to={`/tourist-destination/${row.id}`}>
+                        <IoOpenOutline style={{color: "#769f5e", fontSize: 22}}/>
+                    </Link>
+                );
+            },
+            headerStyle: () => {
+                return {width: '8%', textAlign: 'center'};
+            }
+        }
+    ]
 
     let url = `${API_URL}${DESTINATIONS_URL}`
 
@@ -41,33 +96,14 @@ const TouristDestination = () => {
         <div>
             <NavBar/>
             <div className="section">
-                <div className='panel'>
-                    <Row>
-                        <Col sm={9}><h3 className="title">Administrar Destinos Turísticos</h3></Col>
-                        <Col sm={3}>
-                            <Link to='/tourist-destination/add'>
-                                <Button className='confirm-button' variant="success">
-                                    <MdAddCircle/> Agregar Nuevo
-                                </Button>
-                            </Link>
-                        </Col>
-                    </Row>
-                    <hr className="hr"/>
-                    <div className="menu-options">
-                        {loading && <Loader/>}
-                        {error && (
-                            <Message
-                                msg={`Error ${error.status}: ${error.statusText}`}
-                                bgColor="#dc3545"
-                            />
-                        )}
-                        {dataBase && (
-                            <TableTD
-                                data={dataBase}
-                            />
-                        )}
-                    </div>
-                </div>
+                <Table
+                    error={error}
+                    loading={loading}
+                    data={dataBase}
+                    columns={columns}
+                    title={"Administrar Destinos Turísticos"}
+                    componentName={"tourist-destination"}
+                />
             </div>
         </div>
     );
