@@ -108,7 +108,7 @@ const ManageFormTD = () => {
                     setError(res.err);
                 }
             });
-    }, [id]);
+    }, []);
 
     useEffect(() => {
             let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
@@ -129,10 +129,14 @@ const ManageFormTD = () => {
         [id, url])
 
     const updateData = (data) => {
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         let endpoint = `${url}${id}`
         let options = {
             body: data,
-            headers: {"content-type": "application/json"},
+            headers: {
+                "content-type": "application/json",
+                Authorization: "Bearer " + credentials.token
+            },
         };
         api.post(endpoint, options).then((res) => {
             if (!res.err) {
@@ -148,6 +152,7 @@ const ManageFormTD = () => {
     };
 
     const updateImages = (id) => {
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         let endpoint = `${url}${id}/photos`
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
@@ -157,7 +162,10 @@ const ManageFormTD = () => {
             method: 'POST',
             body: formPhotos,
             mimeType: "multipart/form-data",
-            redirect: 'follow'
+            redirect: 'follow',
+            headers :{
+                Authorization: "Bearer " + credentials.token
+            }
         };
         fetch(endpoint, requestOptions)
             .then(response => response.text())
@@ -210,8 +218,14 @@ const ManageFormTD = () => {
     const handleShow = () => setShow(true);
 
     const handleDelete = () => {
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         let endpoint = `${API_URL}${DESTINATIONS_URL}${id}`
-        api.del(endpoint).then((res) => {
+        const options = {
+            headers: {
+                Authorization: "Bearer " + credentials.token
+            }
+        }
+        api.del(endpoint, options).then((res) => {
             if (!res.err) {
                 setForm(initialForm)
                 setError(false)

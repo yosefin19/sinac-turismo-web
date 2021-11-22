@@ -124,10 +124,14 @@ const AddFormCA = () => {
         photos);
 
     const createData = (data) => {
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         if (validatedData) {
             let options = {
                 body: data,
-                headers: {"content-type": "application/json"},
+                headers: {
+                    "content-type": "application/json",
+                    Authorization: "Bearer " + credentials.token
+                },
             };
             api.post(url, options).then((res) => {
                 //console.log(res);
@@ -146,6 +150,7 @@ const AddFormCA = () => {
     };
 
     const sendImages = (id) => {
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
         let endpoint = `${url}${id}/photos`
         const formPhotos = new FormData();
         for (let i = 0; i < photos.length; i++) {
@@ -155,7 +160,10 @@ const AddFormCA = () => {
             method: 'POST',
             body: formPhotos,
             mimeType: "multipart/form-data",
-            redirect: 'follow'
+            redirect: 'follow',
+            headers :{
+                Authorization: "Bearer " + credentials.token
+            }
         };
         fetch(endpoint, requestOptions)
             .then(response => response.text())
