@@ -1,75 +1,128 @@
-import {AvatarCell, UpdateButton} from '../../components/table/Table';
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 import NavBar from "../../components/NavBar";
-import CustomTable from "../../components/table/CustomTable";
-import {API_URL} from "../../config";
+import {API_URL, IMAGE_BASE_URL} from "../../config";
+import {Image} from "react-bootstrap";
+import Table from "../../components/table/Table";
+import {Link} from "react-router-dom";
+import {IoOpenOutline} from "react-icons/all";
 
 
-export default class Profiles extends Component {
+const Profiles = () => {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            users: []
+    const [profiles, setProfiles] = useState([]);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const styles = {
+        maxHeight: '50px',
+        maxWidth: 'auto',
+        flex: "center",
+        borderRadius: "3px"
+    };
+
+    useEffect(() => {
+        const endPoint = API_URL + 'profiles'
+        const credentials = JSON.parse(localStorage.getItem("credentials"));
+        const options = {
+            method: "GET",
+            headers : {
+                "content-type": "application/json",
+                Authorization: "Bearer " + credentials.token
+            }
         }
-    }
-
-    async getData() {
-        fetch(API_URL+'profiles')
+        setLoading(true);
+        fetch(endPoint, options)
             .then(res => res.json())
             .then((data) => {
-                this.setState({users: data})
+                setProfiles(data);
+                setLoading(false);
             })
-            .catch(console.log)
-    }
+            .catch(error => {
+                setError(error);
+                setLoading(false);
+            })
+    }, []);
 
-    componentDidMount() {
-        this.getData()
-    }
-
-    render() {
-        const columns = [
-            {
-                Header: "",
-                accessor: 'profile_photo_path',
-                Cell: AvatarCell,
+    const columns = [
+        {
+            dataField: 'profile_photo_path',
+            text: 'Foto',
+            formatter: (value, row) => {
+                let photo = value !== "/" ? `${IMAGE_BASE_URL}${value}` : "avatar.jpg";
+                return (
+                    <Image className="profile-image-box" src={photo}/>
+                );
             },
-            {
-                Header: "Identificador",
-                accessor: 'id',
-            },
-            {
-                Header: "Nombre",
-                accessor: 'name',
-            },
-            {
-                Header: "Correo",
-                accessor: 'email',
-            },
-            {
-                Header: "Portada",
-                accessor: 'cover_photo_path',
-            },
-            {
-                Header: "Usuario asociado",
-                accessor: 'user_id',
-            },
-
-            {
-                Header: "Editar",
-                Cell: UpdateButton,
+            headerStyle: () => {
+                return {width: '10%', textAlign: 'center', marginLeft: 1, marginRight: 1};
             }
+        },
+        {
+            dataField: "id",
+            text: "Identificador",
+            sort: true,
+            headerStyle: () => {
+                return {width: '15%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            dataField: "name",
+            text: 'Nombre',
+            sort: true,
+            style: {textOverflow: "ellipsis", overflow: "hidden", maxWidth: '150%'},
+            headerStyle: () => {
+                return {width: '30%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            dataField: "cover_photo_path",
+            text: "Portada",
+            formatter: (value, row) => {
+                let photo = value !== "/" ? `${IMAGE_BASE_URL}${value}` : "defaultCover.jpg";
+                return (<Image style={styles} src={photo}/>);
+            },
+            headerStyle: () => {
+                return {width: '15%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            dataField: "user_id",
+            text: "Usuario Asociado",
+            sort: true,
+            headerStyle: () => {
+                return {width: '15%', textAlign: 'center', marginLeft: 1, marginRight: 1};
+            }
+        },
+        {
+            text: "Editar",
+            formatter: (value, row) => {
+                return (
+                    <Link to={`/profile/${row.id}`}>
+                        <IoOpenOutline style={{color: "#769f5e", fontSize: 22}}/>
+                    </Link>
+                );
+            },
+            headerStyle: () => {
+                return {width: '8%', textAlign: 'center'};
+            }
+        }
+    ]
 
-        ]
-
-        return (
-
-            <div>
-                <NavBar/>
-                <div className='panel'>
-                    <CustomTable name="Administrar Perfiles" columns={columns} data={this.state.users} dir='profile'/>
-                </div>
+    return (
+        <div>
+            <NavBar/>
+            <div className='section'>
+                <Table
+                    error={error}
+                    loading={loading}
+                    data={profiles}
+                    columns={columns}
+                    title={"Administrar Perfiles"}
+                    componentName={"profile"}
+                />
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default Profiles;
