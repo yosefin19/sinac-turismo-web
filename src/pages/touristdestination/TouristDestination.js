@@ -80,7 +80,6 @@ const TouristDestination = () => {
         helpApi()
             .get(url)
             .then((res) => {
-                //console.log(res);
                 if (!res.err) {
                     setDataBase(res);
                     setError(null);

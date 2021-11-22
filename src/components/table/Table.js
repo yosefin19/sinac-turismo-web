@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Col, Row, Spinner} from "react-bootstrap";
-import MySearch from "../components/table/MySearch";
+import MySearch from "./MySearch";
 import {MdAddCircle} from "react-icons/md";
 import Message from "../Message";
 import BootstrapTable from "react-bootstrap-table-next";

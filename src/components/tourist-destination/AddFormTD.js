@@ -94,7 +94,6 @@ const AddFormCA = () => {
         helpApi()
             .get(endpoint)
             .then((res) => {
-                //console.log(res);
                 if (!res.err) {
                     setConservationArea(res);
                     setError(null);
@@ -134,7 +133,6 @@ const AddFormCA = () => {
                 },
             };
             api.post(url, options).then((res) => {
-                //console.log(res);
                 if (!res.err) {
                     sendImages(res.id)
                     setForm(initialForm)
@@ -180,7 +178,6 @@ const AddFormCA = () => {
             ...form,
             [e.target.name]: e.target.value,
         });
-        console.log(form)
     };
 
     const handleSubmit = () => {

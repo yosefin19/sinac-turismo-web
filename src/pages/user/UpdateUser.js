@@ -1,49 +1,31 @@
-import React, {useEffect, useState} from 'react';
-import '../../assets/cuadro.css';
+import React from 'react';
 import {useParams} from 'react-router-dom';
-import Form from '../../components/form/FormUpdateUser'
 import NavBar from "../../components/NavBar";
-import {API_URL} from "../../config";
+import {Col, Row} from "react-bootstrap";
+import UpdateUserForm from "../../components/users/UpdateUserForm";
 
 function UpdateUser() {
 
     let {id} = useParams()
 
-    const apiUrl = `${API_URL}users/` + id;
-
-    const [user, setItems] = useState([]);
-
-    useEffect(() => {
-        fetch(apiUrl)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setItems(result);
-                },
-            )
-    }, [apiUrl])
-
-
     return (
         <div>
             <NavBar/>
-            <div className='panel'>
-                <div className='header-cuadro'>
-
-                    <h1 className='header-text-cuadro'>Administrar Usuarios</h1>
-                    <hr/>
-                </div>
-
-                <div className='body-cuadro'>
-
-                    <Form data={user} id={id}/>
-
+            <div className="section">
+                <div className='panel'>
+                    <div className="menu-options">
+                        <Row>
+                            <Col className='row'><h3 className="title">Administrar Usuarios</h3></Col>
+                        </Row>
+                        <hr/>
+                        <Row>
+                            <UpdateUserForm id={id}/>
+                        </Row>
+                        <hr/>
+                    </div>
                 </div>
             </div>
-
         </div>
-
-
     );
 
 
