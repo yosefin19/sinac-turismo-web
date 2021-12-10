@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Proyecto SINAC Turismo: Web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+La presente página web fue realizada por Brandon Ledezma Fernández, Walter Morales Vásquez y Yosefin Solano Marín con la finalidad de que sea de utilidad para la organización SINAC en Costa Rica, la cual es encargada de la administración de las áreas protegidas e integra las competencias en materia forestal, vida silvestre  y la protección y conservación del uso de cuencas hidrográficas y sistemas hídricos con el fin de dictar políticas, planificar y ejecutar procesos dirigidos a lograr la sostenibilidad en el manejo de los recursos naturales del país.
 
-## Available Scripts
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/56206208/145647973-8189768b-47f2-4b38-9cc8-15b9d685865c.png"/>
+<p align="center">
 
-In the project directory, you can run:
+## Aplicaciones relacionadas
+- SINAC Turismo: Móvil (Aplicación móvil para brindar información sobre áreas de conservación y destinos turísticos) 
+https://github.com/yosefin19/sinac-turismo-mobile
 
-### `npm start`
+- SINAC Turismo: Web (Página web para la administración \[visualización, inserción, modificación y eliminación\] de la información)
+https://github.com/yosefin19/sinac-turismo-web
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- SINAC Turismo: API (API donde se obtiene y registra la información relacionada con las aplicaciones) 
+https://github.com/yosefin19/sinac-turismo-api
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Objetivo
 
-### `npm test`
+Con el desarrollo de esta página web se plantea brindar a los administradores de la aplicación móvil una manera fácil de visualizar, insertar, modificar y eliminar. La finalidad de esto concluye en resolver el problema de que los turistas costarricenses o internacionales que visitan la página del SINAC requieren de un fácil acceso a la información de sitios turísticos registrados por dicha organización, asimismo, existe la necesidad de poder mejorar el proceso de compra y reserva para visitar estos lugares. Esta aplicación plantea permitir a los turistas realizar dichas acciones de una forma centralizada y rápida, así como también poder compartir sus experiencias en los destinos registrados con las demás personas.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Requerimientos generales
 
-### `npm run build`
+### 1 Administración de áreas de conservación
+Un usuario administrador puede realizar funciones de creación, lectura, actualización y eliminación de las áreas de conservación en la aplicación. En esta podrá aplicar lo anterior a un listado de imágenes de la zona, el nombre del área y la ubicación sobre el mapa del mismo.
+### 2 Administración de destinos turísticos.
+Deberá existir un conjunto de opciones para crear, mostrar, modificar y eliminar destinos turísticos para usuarios administradores. Cada destino turístico tendrá nombre, descripción, fotografías, horario, tarifas, recomendaciones, dificultad y ubicación exacta en el mapa.
+### 3 Administración de usuarios.
+Un administrador es capaz de realizar funciones de creación, lectura, actualización y eliminación de los usuarios en la aplicación. Presenta campos para nombre de usuario, correo electrónico, contraseña y teléfono. La contraseña del usuario deberá encontrarse cifrada.
+### 4 Administración de perfiles.
+Deberá existir un conjunto de opciones para crear, actualizar, mostrar y eliminar perfiles de usuarios para usuarios administradores. Cada perfil contiene el nombre, correo electrónico, número telefónico y contraseña de un usuario.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Ejecución de programa
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Es necesario contar con NodeJS y npm, de igual forma es necesario contar con React Native.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Es necesario descargar el contenido desde su respectivo repositorio sinac-turismo-web.
 
-### `npm run eject`
+- Posteriormente es necesario descargar y instalar la dependencias necesarias por lo que se hace uso de npm:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```console
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Es necesario contar con un servidor HTTP, puede ser nginx, Apache Server u otro según las necesidades y realizar las configuraciones necesarias.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- En este momento es posible poner a correr la página web utilizando el comando:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```console
+npm start
+```
 
-## Learn More
+- Para compilar la aplicación es necesario ejecutar el siguiente comando el cual creará una carpeta build con el resultado:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```console
+npm run build
+``` 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- La carpeta creada es la que se debe establecer en el servidor HTTP utilizado como recurso, para que pueda ser accedido al sitio de administración.
 
-### Code Splitting
+## Estado
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+La aplicación funciona completamente, implementando todas las funcionalidades que fueron solicitadas. Se realizaron las pruebas de funcionalidad correspondientes a cada uno de los componentes.
 
-### Analyzing the Bundle Size
+## Realizado por:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Brandon Ledezma Fernández
+* Walter Morales Vásquez
+* Yosefin Solano Marín 
